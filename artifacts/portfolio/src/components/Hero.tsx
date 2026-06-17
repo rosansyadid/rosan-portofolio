@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { ChevronDown } from "lucide-react";
-import MagneticButton from "./MagneticButton";
 
 const titles = [
   "Web Developer",
@@ -41,17 +40,20 @@ export default function Hero() {
   return (
     <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
       
-      {/* Bamboo Decorations */}
-      <div className="absolute inset-y-0 left-0 w-8 md:w-16 flex flex-col justify-between opacity-30 pointer-events-none">
-        {[...Array(6)].map((_, i) => (
-          <div key={`bamboo-l-${i}`} className="w-full h-32 bg-secondary border-r-4 border-b-4 border-foreground/50 rounded-br-lg" />
-        ))}
+      {/* Background Anime Aura Effect */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none z-0">
+        <div className="absolute top-1/4 left-1/4 w-[50vw] h-[50vw] rounded-full bg-primary/20 blur-[120px] mix-blend-screen" />
+        <div className="absolute bottom-1/4 right-1/4 w-[40vw] h-[40vw] rounded-full bg-secondary/15 blur-[100px] mix-blend-screen" />
       </div>
-      <div className="absolute inset-y-0 right-0 w-8 md:w-16 flex flex-col justify-between opacity-30 pointer-events-none">
-        {[...Array(6)].map((_, i) => (
-          <div key={`bamboo-r-${i}`} className="w-full h-32 bg-secondary border-l-4 border-b-4 border-foreground/50 rounded-bl-lg" />
-        ))}
-      </div>
+      
+      {/* Grid Pattern Overlay */}
+      <div 
+        className="absolute inset-0 opacity-50 z-0 pointer-events-none mix-blend-overlay"
+        style={{ 
+          backgroundImage: 'linear-gradient(hsl(var(--primary)/0.04) 1px, transparent 1px), linear-gradient(90deg, hsl(var(--primary)/0.04) 1px, transparent 1px)', 
+          backgroundSize: '40px 40px' 
+        }} 
+      />
 
       <div className="container mx-auto px-6 relative z-10 text-center">
         <motion.div
@@ -60,13 +62,16 @@ export default function Hero() {
           transition={{ duration: 0.8 }}
           className="relative inline-block"
         >
-          {/* Floating Stars */}
-          <motion.svg className="absolute -top-12 -left-12 w-8 h-8 text-primary" viewBox="0 0 24 24" fill="currentColor" animate={{ y: [0, -10, 0], rotate: [0, 10, -10, 0] }} transition={{ repeat: Infinity, duration: 3 }}><path d="M12 2L15 9L22 12L15 15L12 22L9 15L2 12L9 9L12 2Z"/></motion.svg>
-          <motion.svg className="absolute top-10 -right-16 w-6 h-6 text-accent" viewBox="0 0 24 24" fill="currentColor" animate={{ y: [0, 10, 0], rotate: [0, -15, 15, 0] }} transition={{ repeat: Infinity, duration: 4, delay: 1 }}><path d="M12 2L15 9L22 12L15 15L12 22L9 15L2 12L9 9L12 2Z"/></motion.svg>
-          <motion.svg className="absolute -bottom-8 -left-8 w-5 h-5 text-secondary" viewBox="0 0 24 24" fill="currentColor" animate={{ y: [0, -8, 0], rotate: [0, 20, -20, 0] }} transition={{ repeat: Infinity, duration: 3.5, delay: 0.5 }}><path d="M12 2L15 9L22 12L15 15L12 22L9 15L2 12L9 9L12 2Z"/></motion.svg>
+          {/* Flame Spark Dots */}
+          <div className="absolute -top-10 -left-10 w-2 h-2 rounded-full bg-primary blur-[1px] opacity-60 animate-[flame-flicker_2s_infinite_ease-in-out]" />
+          <div className="absolute -top-5 right-10 w-2.5 h-2.5 rounded-full bg-primary blur-[1px] opacity-50 animate-[flame-flicker_3s_infinite_ease-in-out_0.5s]" />
+          <div className="absolute top-1/4 -right-16 w-1.5 h-1.5 rounded-full bg-primary blur-[1px] opacity-70 animate-[flame-flicker_2.5s_infinite_ease-in-out_1s]" />
+          <div className="absolute bottom-10 -left-16 w-2 h-2 rounded-full bg-primary blur-[1px] opacity-50 animate-[flame-flicker_2.2s_infinite_ease-in-out_0.2s]" />
+          <div className="absolute -bottom-8 left-10 w-1.5 h-1.5 rounded-full bg-primary blur-[1px] opacity-40 animate-[flame-flicker_3s_infinite_ease-in-out_1.5s]" />
+          <div className="absolute -bottom-5 -right-5 w-2 h-2 rounded-full bg-primary blur-[1px] opacity-60 animate-[flame-flicker_2.8s_infinite_ease-in-out_0.8s]" />
 
           <p className="font-mono text-xl text-primary mb-4 tracking-widest uppercase font-bold">Hi, my name is</p>
-          <h1 className="font-['Bangers'] text-6xl md:text-8xl lg:text-9xl tracking-wide mb-6 text-foreground drop-shadow-sm">
+          <h1 className="font-['Rajdhani'] font-bold text-6xl md:text-8xl tracking-tight mb-6 text-foreground drop-shadow-sm">
             Muli'at Harosan Syadida.
           </h1>
           <h2 className="text-3xl md:text-4xl font-bold font-sans text-muted-foreground mb-8 h-20 md:h-24">
@@ -78,28 +83,25 @@ export default function Hero() {
           </p>
           
           <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
-            <MagneticButton 
-              as="a" 
+            <a 
               href="#projects" 
-              className="px-8 py-4 bg-primary text-primary-foreground font-bold rounded-xl border-[3px] border-foreground shadow-[4px_4px_0px_var(--color-foreground)] hover:shadow-[2px_2px_0px_var(--color-foreground)] hover:translate-x-[2px] hover:translate-y-[2px] transition-all font-['Bangers'] text-xl tracking-wider"
+              className="px-8 py-4 bg-primary text-primary-foreground font-semibold rounded-lg transition hover:bg-primary/80 hover:shadow-[0_0_20px_hsl(var(--primary)/0.5)] hover:scale-[1.03] active:scale-95"
             >
               View My Work
-            </MagneticButton>
-            <MagneticButton 
-              as="a"
+            </a>
+            <a
               href="https://drive.google.com/file/d/1W3Cb3EWl1ghaIgem3Upwe_VQQp1B-qYo/view" 
               target="_blank" 
               rel="noopener noreferrer"
-              className="px-8 py-4 bg-secondary text-secondary-foreground font-bold rounded-xl border-[3px] border-foreground shadow-[4px_4px_0px_var(--color-foreground)] hover:shadow-[2px_2px_0px_var(--color-foreground)] hover:translate-x-[2px] hover:translate-y-[2px] transition-all font-['Bangers'] text-xl tracking-wider"
+              className="px-8 py-4 bg-card border border-border text-foreground font-semibold rounded-lg hover:border-primary/50 hover:shadow-[0_0_12px_hsl(var(--primary)/0.2)] hover:scale-[1.03] active:scale-95 transition-all"
             >
               Resume / CV
-            </MagneticButton>
+            </a>
           </div>
         </motion.div>
       </div>
 
       <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2">
-        <span className="font-['Bangers'] text-sm tracking-widest text-muted-foreground">★ SCROLL DOWN ★</span>
         <motion.a
           href="#about"
           className="text-muted-foreground hover:text-primary transition-colors"

@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import MagneticButton from "./MagneticButton";
+import { ArrowUp } from "lucide-react";
 
 export default function ScrollToTop() {
   const [isVisible, setIsVisible] = useState(false);
@@ -34,13 +34,13 @@ export default function ScrollToTop() {
           exit={{ opacity: 0, scale: 0.5 }}
           className="fixed bottom-8 right-8 z-50"
         >
-          <MagneticButton
+          <button
             onClick={scrollToTop}
-            className="flex items-center justify-center w-14 h-14 bg-primary text-primary-foreground rounded-lg cartoon-box shadow-[4px_4px_0px_var(--color-foreground)] hover:shadow-[2px_2px_0px_var(--color-foreground)] hover:translate-x-[2px] hover:translate-y-[2px] hover:bg-primary/90 transition-all focus:outline-none text-2xl"
+            className="flex items-center justify-center p-3 bg-primary text-primary-foreground rounded-full hover:shadow-[0_0_20px_hsl(var(--primary)/0.5)] hover:scale-110 transition-all focus:outline-none"
             data-testid="button-scroll-to-top"
           >
-            🐾
-          </MagneticButton>
+            <ArrowUp size={24} />
+          </button>
         </motion.div>
       )}
     </AnimatePresence>

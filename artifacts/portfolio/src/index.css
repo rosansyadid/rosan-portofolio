@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Bangers&family=Nunito:wght@400;500;600;700;800&family=VT323&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,700;1,9..40,400&family=Share+Tech+Mono&display=swap');
 @import "tailwindcss";
 @import "tw-animate-css";
 @plugin "@tailwindcss/typography";
@@ -51,73 +51,56 @@
 }
 
 :root {
-  --app-font-sans: 'Nunito', sans-serif;
-  --app-font-mono: 'VT323', monospace;
+  --app-font-sans: 'DM Sans', sans-serif;
   --app-font-serif: Georgia, serif;
+  --app-font-mono: 'Share Tech Mono', monospace;
+  --radius: 0.75rem;
 
-  /* LIGHT MODE */
-  --button-outline: rgba(0,0,0, .10);
-  --badge-outline: rgba(0,0,0, .05);
-  --opaque-button-border-intensity: -8;
-  --elevate-1: rgba(0,0,0, .03);
-  --elevate-2: rgba(0,0,0, .08);
-
-  --background: 40 35% 93%;        /* warm parchment */
-  --foreground: 25 60% 12%;        /* dark ink brown */
-  --border: 30 40% 65%;            /* aged paper border */
-  --card: 42 50% 97%;              /* lighter scroll parchment */
-  --card-foreground: 25 60% 12%;
-  --card-border: 30 40% 60%;
-  --popover: 42 50% 97%;
-  --popover-foreground: 25 60% 12%;
-  --popover-border: 30 40% 60%;
-  --primary: 32 95% 48%;           /* Kung Fu gold/amber */
-  --primary-foreground: 25 60% 8%;
-  --secondary: 145 45% 35%;        /* bamboo jade green */
+  --background: 220 25% 94%;
+  --foreground: 220 40% 8%;
+  --border: 220 20% 78%;
+  --card: 220 30% 98%;
+  --card-foreground: 220 40% 8%;
+  --card-border: 220 20% 75%;
+  --popover: 220 30% 98%;
+  --popover-foreground: 220 40% 8%;
+  --popover-border: 220 20% 75%;
+  --primary: 220 90% 56%;        /* electric blue */
+  --primary-foreground: 0 0% 100%;
+  --secondary: 270 60% 55%;      /* mystic purple */
   --secondary-foreground: 0 0% 100%;
-  --muted: 40 25% 87%;
-  --muted-foreground: 25 40% 40%;
-  --accent: 0 75% 50%;             /* kung fu red */
-  --accent-foreground: 0 0% 100%;
+  --muted: 220 20% 88%;
+  --muted-foreground: 220 20% 45%;
+  --accent: 190 100% 45%;        /* cyan flame */
+  --accent-foreground: 220 40% 8%;
   --destructive: 0 84% 60%;
   --destructive-foreground: 0 0% 100%;
-  --input: 40 30% 82%;
-  --ring: 32 95% 48%;
-
-  --radius: 1rem;
-  --cartoon-border: 3px solid hsl(25 60% 12%);
-  --cartoon-shadow: 4px 4px 0px hsl(25 60% 12%);
-  --cartoon-shadow-lg: 6px 6px 0px hsl(25 60% 12%);
+  --input: 220 20% 84%;
+  --ring: 220 90% 56%;
 }
 
 .dark {
-  --button-outline: rgba(255,255,255, .10);
-  --badge-outline: rgba(255,255,255, .05);
-  --opaque-button-border-intensity: 9;
-  --elevate-1: rgba(255,255,255, .04);
-  --elevate-2: rgba(255,255,255, .09);
-
-  --background: 168 35% 8%;        /* deep bamboo forest night */
-  --foreground: 42 80% 92%;        /* warm parchment glow */
-  --border: 168 25% 22%;
-  --card: 168 35% 11%;
-  --card-foreground: 42 80% 92%;
-  --card-border: 168 25% 22%;
-  --popover: 168 35% 11%;
-  --popover-foreground: 42 80% 92%;
-  --popover-border: 168 25% 22%;
-  --primary: 40 100% 58%;          /* glowing gold */
-  --primary-foreground: 25 60% 8%;
-  --secondary: 168 40% 20%;        /* dark jade */
-  --secondary-foreground: 42 80% 92%;
-  --muted: 168 30% 15%;
-  --muted-foreground: 42 40% 65%;
-  --accent: 0 75% 55%;             /* vibrant kung fu red */
-  --accent-foreground: 0 0% 100%;
-  --destructive: 0 62.8% 45%;
-  --destructive-foreground: 42 80% 92%;
-  --input: 168 30% 18%;
-  --ring: 40 100% 58%;
+  --background: 222 47% 5%;       /* near-black deep navy */
+  --foreground: 210 30% 92%;
+  --border: 222 35% 16%;
+  --card: 222 47% 8%;
+  --card-foreground: 210 30% 92%;
+  --card-border: 222 35% 18%;
+  --popover: 222 47% 8%;
+  --popover-foreground: 210 30% 92%;
+  --popover-border: 222 35% 18%;
+  --primary: 220 100% 65%;        /* bright electric blue */
+  --primary-foreground: 222 47% 5%;
+  --secondary: 265 70% 65%;       /* vivid purple */
+  --secondary-foreground: 0 0% 100%;
+  --muted: 222 35% 13%;
+  --muted-foreground: 220 20% 55%;
+  --accent: 185 100% 55%;         /* electric cyan */
+  --accent-foreground: 222 47% 5%;
+  --destructive: 0 70% 55%;
+  --destructive-foreground: 0 0% 100%;
+  --input: 222 35% 14%;
+  --ring: 220 100% 65%;
 }
 
 @layer base {
@@ -132,28 +115,70 @@
     cursor: none;
   }
   
-  .cartoon-box {
-    border: var(--cartoon-border);
-    box-shadow: var(--cartoon-shadow);
+  /* Anime card panel style */
+  .card-panel {
+    background: hsl(var(--card));
+    border: 1px solid hsl(var(--card-border));
     border-radius: var(--radius);
+    box-shadow: 0 0 0 1px hsl(var(--primary) / 0.08), 0 4px 24px hsl(var(--primary) / 0.06);
   }
-  .cartoon-box-lg {
-    border: var(--cartoon-border);
-    box-shadow: var(--cartoon-shadow-lg);
+  .card-panel-glow {
+    background: hsl(var(--card));
+    border: 1px solid hsl(var(--primary) / 0.35);
     border-radius: var(--radius);
+    box-shadow: 0 0 0 1px hsl(var(--primary) / 0.12), 0 0 24px hsl(var(--primary) / 0.12), 0 8px 32px hsl(var(--background) / 0.8);
+  }
+
+  /* Card corner decoration (top-left + bottom-right) */
+  .card-corner::before,
+  .card-corner::after {
+    content: '';
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    border-color: hsl(var(--primary) / 0.5);
+    border-style: solid;
+  }
+  .card-corner::before {
+    top: 8px; left: 8px;
+    border-width: 2px 0 0 2px;
+  }
+  .card-corner::after {
+    bottom: 8px; right: 8px;
+    border-width: 0 2px 2px 0;
+  }
+
+  /* Anime-style section divider */
+  .anime-divider {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .anime-divider::before,
+  .anime-divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(to right, transparent, hsl(var(--primary) / 0.5), transparent);
+  }
+
+  /* Blue flame / glow effects */
+  @keyframes flame-flicker {
+    0%, 100% { opacity: 0.6; transform: scaleY(1) translateY(0); }
+    25% { opacity: 0.9; transform: scaleY(1.05) translateY(-2px); }
+    75% { opacity: 0.7; transform: scaleY(0.98) translateY(1px); }
+  }
+  @keyframes pulse-glow {
+    0%, 100% { box-shadow: 0 0 8px hsl(var(--primary) / 0.4); }
+    50% { box-shadow: 0 0 20px hsl(var(--primary) / 0.7), 0 0 40px hsl(var(--primary) / 0.3); }
+  }
+  @keyframes float-card {
+    0%, 100% { transform: translateY(0px) rotate(-0.5deg); }
+    50% { transform: translateY(-6px) rotate(0.5deg); }
+  }
+  @keyframes scan-line {
+    0% { background-position: 0 0; }
+    100% { background-position: 0 100%; }
   }
 }
 html { scroll-behavior: smooth; }
-
-@keyframes float-bob {
-  0%, 100% { transform: translateY(0px) rotate(-1deg); }
-  50% { transform: translateY(-8px) rotate(1deg); }
-}
-@keyframes spin-slow {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
-}
-@keyframes wiggle {
-  0%, 100% { transform: rotate(-3deg); }
-  50% { transform: rotate(3deg); }
-}

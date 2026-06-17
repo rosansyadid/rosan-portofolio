@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { useState } from "react";
 import { FaGithub } from "react-icons/fa";
 
 const projects = [
@@ -28,9 +29,81 @@ const projects = [
   }
 ];
 
+function ProjectCard({ project, index }: { project: typeof projects[0], index: number }) {
+  const [tilt, setTilt] = useState({ x: 0, y: 0 });
+  
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const x = ((e.clientY - rect.top) / rect.height - 0.5) * 12;
+    const y = -((e.clientX - rect.left) / rect.width - 0.5) * 12;
+    setTilt({ x, y });
+  };
+  
+  const handleMouseLeave = () => setTilt({ x: 0, y: 0 });
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.5, delay: index * 0.1 }}
+      style={{ transform: `perspective(800px) rotateX(${tilt.x}deg) rotateY(${tilt.y}deg)`, transition: 'transform 0.1s ease' }}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      className="group relative card-panel-glow p-8 flex flex-col h-full overflow-hidden"
+    >
+      {/* Card Corner Decoration */}
+      <div className="absolute top-2 left-2 w-3 h-3 border-t border-l border-primary/50" />
+      <div className="absolute top-2 right-2 w-3 h-3 border-t border-r border-primary/50" />
+      <div className="absolute bottom-2 left-2 w-3 h-3 border-b border-l border-primary/50" />
+      <div className="absolute bottom-2 right-2 w-3 h-3 border-b border-r border-primary/50" />
+      
+      {/* Shine Line */}
+      <div className="absolute inset-0 z-0 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity">
+        <div className="absolute top-0 bottom-0 w-[200%] bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-0 transition-transform duration-700 ease-out" />
+      </div>
+
+      {/* Project Number Badge */}
+      <div className="absolute top-6 right-6 font-mono text-primary/60 text-xs font-bold">
+        {(index + 1).toString().padStart(2, '0')}
+      </div>
+
+      <div className="flex justify-between items-start mb-6 relative z-10">
+        <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary text-xl shadow-[0_0_10px_hsl(var(--primary)/0.2)]">
+          ◈
+        </div>
+        <a 
+          href={project.github} 
+          target="_blank" 
+          rel="noopener noreferrer"
+          className="text-muted-foreground hover:text-primary transition-colors hover:drop-shadow-[0_0_8px_hsl(var(--primary)/0.8)] z-10 relative mr-8"
+        >
+          <FaGithub size={24} />
+        </a>
+      </div>
+      
+      <h3 className="text-2xl font-['Rajdhani'] font-bold tracking-wide mb-4 text-foreground relative z-10">{project.title}</h3>
+      <p className="text-muted-foreground font-sans font-medium mb-8 flex-grow leading-relaxed relative z-10">
+        {project.description}
+      </p>
+      
+      <div className="flex flex-wrap gap-2 mt-auto relative z-10">
+        {project.tech.map(tech => (
+          <span 
+            key={tech} 
+            className="px-3 py-1 bg-primary/10 text-primary border border-primary/20 text-xs font-medium rounded-full"
+          >
+            {tech}
+          </span>
+        ))}
+      </div>
+    </motion.div>
+  );
+}
+
 export default function Projects() {
   return (
-    <section id="projects" className="py-24 bg-card/30">
+    <section id="projects" className="py-24">
       <div className="container mx-auto px-6 max-w-6xl">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -38,50 +111,14 @@ export default function Projects() {
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
-          <div className="flex items-center justify-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-['Bangers'] tracking-wider text-center border-b-4 border-foreground pb-2 px-8 inline-block">Featured Projects</h2>
+          <div className="mb-16">
+            <h2 className="text-4xl md:text-5xl font-['Rajdhani'] font-bold tracking-tight mb-4">Featured Projects</h2>
+            <div className="anime-divider"></div>
           </div>
 
           <div className="grid md:grid-cols-2 gap-10">
             {projects.map((project, index) => (
-              <motion.div
-                key={project.title}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="group relative bg-card cartoon-box-lg p-8 hover:-translate-y-2 hover:translate-x-[-2px] hover:shadow-[8px_8px_0px_var(--color-foreground)] transition-all duration-300 flex flex-col h-full"
-              >
-                <div className="flex justify-between items-start mb-6">
-                  <div className="p-2 bg-primary rounded-full border-2 border-foreground shadow-[2px_2px_0px_var(--color-foreground)] text-2xl flex items-center justify-center w-12 h-12">
-                    📜
-                  </div>
-                  <a 
-                    href={project.github} 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    className="text-foreground hover:text-primary transition-colors p-2"
-                  >
-                    <FaGithub size={28} />
-                  </a>
-                </div>
-                
-                <h3 className="text-3xl font-['Bangers'] tracking-wide mb-4 text-foreground">{project.title}</h3>
-                <p className="text-muted-foreground font-sans font-medium mb-8 flex-grow leading-relaxed">
-                  {project.description}
-                </p>
-                
-                <div className="flex flex-wrap gap-2 mt-auto">
-                  {project.tech.map(tech => (
-                    <span 
-                      key={tech} 
-                      className="px-4 py-1 bg-secondary text-secondary-foreground text-sm font-bold font-sans rounded-full border-2 border-foreground/30"
-                    >
-                      {tech}
-                    </span>
-                  ))}
-                </div>
-              </motion.div>
+              <ProjectCard key={project.title} project={project} index={index} />
             ))}
           </div>
         </motion.div>

@@ -15,7 +15,7 @@ const skills = [
 
 export default function Skills() {
   return (
-    <section id="skills" className="py-24">
+    <section id="skills" className="py-24 bg-card/30">
       <div className="container mx-auto px-6 max-w-5xl">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -24,13 +24,12 @@ export default function Skills() {
           transition={{ duration: 0.6 }}
         >
           {/* Section Header */}
-          <div className="flex items-center justify-center mb-16">
-            <div className="h-[3px] bg-foreground flex-grow max-w-[100px]" />
-            <h2 className="text-4xl md:text-5xl font-['Bangers'] tracking-wider text-center mx-6">Skills & Proficiency</h2>
-            <div className="h-[3px] bg-foreground flex-grow max-w-[100px]" />
+          <div className="mb-16">
+            <h2 className="text-4xl md:text-5xl font-['Rajdhani'] font-bold tracking-tight mb-4">Skills & Proficiency</h2>
+            <div className="anime-divider"></div>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-x-16 gap-y-10">
+          <div className="grid md:grid-cols-2 gap-x-12 gap-y-8">
             {skills.map((skill, index) => (
               <motion.div 
                 key={skill.name}
@@ -38,28 +37,26 @@ export default function Skills() {
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="space-y-3"
+                className="card-panel p-5"
               >
-                <div className="flex justify-between items-center">
+                <div className="flex justify-between items-center mb-4">
                   <div className="flex items-center gap-3">
-                    <skill.icon size={28} style={{ color: skill.color }} className="drop-shadow-md" />
-                    <span className="font-bold font-sans text-lg">{skill.name}</span>
+                    <skill.icon size={24} style={{ color: skill.color }} />
+                    <span className="font-semibold font-sans text-lg">{skill.name}</span>
                   </div>
-                  <span className="bg-primary text-primary-foreground text-sm font-['Bangers'] px-3 py-1 cartoon-box rounded-full tracking-wider">{skill.percentage}%</span>
+                  <span className="font-mono text-primary font-bold">{skill.percentage}%</span>
                 </div>
-                {/* Cartoon Track */}
-                <div className="h-5 w-full bg-muted border-[3px] border-foreground/40 rounded-full overflow-hidden shadow-inner">
+                {/* Progress bar */}
+                <div className="h-2.5 w-full bg-muted border border-border/50 rounded-full overflow-hidden">
                   <motion.div
                     initial={{ width: 0 }}
                     whileInView={{ width: `${skill.percentage}%` }}
                     viewport={{ once: true }}
                     transition={{ duration: 1, delay: 0.2 + (index * 0.1), ease: "easeOut" }}
-                    className="h-full border-r-[3px] border-foreground/40"
-                    style={{ 
-                      backgroundColor: skill.color,
-                      backgroundImage: 'repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(255,255,255,0.2) 10px, rgba(255,255,255,0.2) 20px)'
-                    }}
-                  />
+                    className="h-full bg-gradient-to-r from-primary to-accent rounded-full relative"
+                  >
+                    <div className="absolute right-0 top-1/2 -translate-y-1/2 w-3 h-3 bg-accent rounded-full shadow-[0_0_8px] shadow-accent" />
+                  </motion.div>
                 </div>
               </motion.div>
             ))}

@@ -47,11 +47,11 @@ export default function Navbar() {
   return (
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled ? "bg-card border-b-[3px] border-foreground py-4" : "bg-transparent py-6"
+        isScrolled ? "bg-background/85 backdrop-blur border-b border-border py-4" : "bg-transparent py-6"
       }`}
     >
       <div className="container mx-auto px-6 flex items-center justify-between">
-        <a href="#home" className="text-3xl font-['Bangers'] tracking-wider text-primary hover:text-primary/80 transition-colors">
+        <a href="#home" className="font-['Rajdhani'] font-bold text-2xl tracking-wider text-primary hover:text-primary/80 transition-colors">
           ⚡ R/S
         </a>
 
@@ -61,17 +61,20 @@ export default function Navbar() {
             <a
               key={link.name}
               href={link.href}
-              className={`relative text-lg font-bold font-sans transition-colors hover:text-primary ${
-                activeSection === link.href.substring(1) ? "text-primary" : "text-muted-foreground"
-              } group`}
+              className={`relative text-lg font-sans transition-colors group ${
+                activeSection === link.href.substring(1) ? "text-primary font-semibold" : "text-muted-foreground hover:text-primary"
+              }`}
             >
               {link.name}
-              <span className="absolute left-0 bottom-[-4px] w-full h-[3px] bg-primary transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left rounded-full" />
+              <span className="absolute left-0 bottom-[-4px] w-full h-[2px] bg-primary transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left" />
+              {activeSection === link.href.substring(1) && (
+                <span className="absolute left-1/2 bottom-[-8px] w-1.5 h-1.5 bg-primary rounded-full -translate-x-1/2 shadow-[0_0_8px_hsl(var(--primary))]" />
+              )}
             </a>
           ))}
           <button
             onClick={toggleTheme}
-            className="p-2 rounded-full cartoon-box bg-background text-foreground hover:bg-muted transition-colors"
+            className="p-2 rounded-full border border-border bg-card text-foreground transition-all hover:bg-muted hover:ring-2 ring-primary/50"
             data-testid="button-theme-toggle"
           >
             {isDark ? <Sun size={20} /> : <Moon size={20} />}
@@ -82,7 +85,7 @@ export default function Navbar() {
         <div className="flex md:hidden items-center gap-4">
           <button
             onClick={toggleTheme}
-            className="p-2 rounded-full cartoon-box bg-background text-foreground hover:bg-muted transition-colors"
+            className="p-2 rounded-full border border-border bg-card text-foreground transition-all hover:bg-muted hover:ring-2 ring-primary/50"
           >
             {isDark ? <Sun size={20} /> : <Moon size={20} />}
           </button>
@@ -102,15 +105,15 @@ export default function Navbar() {
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
-            className="absolute top-full left-0 right-0 bg-background border-b-[3px] border-foreground p-6 shadow-xl md:hidden flex flex-col gap-4"
+            className="absolute top-full left-0 right-0 bg-background border-b border-border p-6 shadow-xl md:hidden flex flex-col gap-4"
           >
             {navLinks.map((link) => (
               <a
                 key={link.name}
                 href={link.href}
                 onClick={() => setIsMobileMenuOpen(false)}
-                className={`text-lg font-bold font-sans transition-colors hover:text-primary ${
-                  activeSection === link.href.substring(1) ? "text-primary" : "text-muted-foreground"
+                className={`text-lg font-sans transition-colors hover:text-primary ${
+                  activeSection === link.href.substring(1) ? "text-primary font-semibold" : "text-muted-foreground"
                 }`}
               >
                 {link.name}
