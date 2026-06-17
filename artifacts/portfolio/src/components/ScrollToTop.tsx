@@ -36,7 +36,7 @@ export default function ScrollToTop() {
         >
           <button
             onClick={scrollToTop}
-            className="flex items-center justify-center p-3 bg-primary text-primary-foreground rounded-full hover:shadow-[0_0_20px_hsl(var(--primary)/0.5)] hover:scale-110 transition-all focus:outline-none"
+            className="flex items-center justify-center p-3 bg-primary text-primary-foreground rounded-full hover:shadow-[0_0_20px_hsl(var(--primary)/0.6)] hover:scale-110 transition-all focus:outline-none"
             data-testid="button-scroll-to-top"
           >
             <ArrowUp size={24} />

@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,700;1,9..40,400&family=Share+Tech+Mono&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Anton&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,700;1,9..40,400&family=Share+Tech+Mono&display=swap');
 @import "tailwindcss";
 @import "tw-animate-css";
 @plugin "@tailwindcss/typography";
@@ -54,53 +54,53 @@
   --app-font-sans: 'DM Sans', sans-serif;
   --app-font-serif: Georgia, serif;
   --app-font-mono: 'Share Tech Mono', monospace;
-  --radius: 0.75rem;
+  --radius: 0.5rem;
 
-  --background: 220 25% 94%;
-  --foreground: 220 40% 8%;
-  --border: 220 20% 78%;
-  --card: 220 30% 98%;
-  --card-foreground: 220 40% 8%;
-  --card-border: 220 20% 75%;
-  --popover: 220 30% 98%;
-  --popover-foreground: 220 40% 8%;
-  --popover-border: 220 20% 75%;
-  --primary: 220 90% 56%;        /* electric blue */
-  --primary-foreground: 0 0% 100%;
-  --secondary: 270 60% 55%;      /* mystic purple */
+  --background: 45 30% 93%;
+  --foreground: 270 40% 8%;
+  --border: 45 20% 75%;
+  --card: 45 40% 97%;
+  --card-foreground: 270 40% 8%;
+  --card-border: 45 20% 72%;
+  --popover: 45 40% 97%;
+  --popover-foreground: 270 40% 8%;
+  --popover-border: 45 20% 72%;
+  --primary: 51 100% 50%;        /* Dio gold */
+  --primary-foreground: 270 60% 8%;
+  --secondary: 280 65% 45%;      /* Stand purple */
   --secondary-foreground: 0 0% 100%;
-  --muted: 220 20% 88%;
-  --muted-foreground: 220 20% 45%;
-  --accent: 190 100% 45%;        /* cyan flame */
-  --accent-foreground: 220 40% 8%;
+  --muted: 45 20% 87%;
+  --muted-foreground: 270 25% 40%;
+  --accent: 348 80% 48%;         /* blood crimson */
+  --accent-foreground: 0 0% 100%;
   --destructive: 0 84% 60%;
   --destructive-foreground: 0 0% 100%;
-  --input: 220 20% 84%;
-  --ring: 220 90% 56%;
+  --input: 45 20% 82%;
+  --ring: 51 100% 50%;
 }
 
 .dark {
-  --background: 222 47% 5%;       /* near-black deep navy */
-  --foreground: 210 30% 92%;
-  --border: 222 35% 16%;
-  --card: 222 47% 8%;
-  --card-foreground: 210 30% 92%;
-  --card-border: 222 35% 18%;
-  --popover: 222 47% 8%;
-  --popover-foreground: 210 30% 92%;
-  --popover-border: 222 35% 18%;
-  --primary: 220 100% 65%;        /* bright electric blue */
-  --primary-foreground: 222 47% 5%;
-  --secondary: 265 70% 65%;       /* vivid purple */
+  --background: 270 55% 4%;       /* near-black deep purple */
+  --foreground: 45 60% 90%;       /* warm gold-cream */
+  --border: 270 30% 16%;
+  --card: 270 50% 7%;
+  --card-foreground: 45 60% 90%;
+  --card-border: 270 30% 18%;
+  --popover: 270 50% 7%;
+  --popover-foreground: 45 60% 90%;
+  --popover-border: 270 30% 18%;
+  --primary: 51 100% 55%;         /* gleaming gold */
+  --primary-foreground: 270 60% 6%;
+  --secondary: 280 70% 60%;       /* menacing purple */
   --secondary-foreground: 0 0% 100%;
-  --muted: 222 35% 13%;
-  --muted-foreground: 220 20% 55%;
-  --accent: 185 100% 55%;         /* electric cyan */
-  --accent-foreground: 222 47% 5%;
+  --muted: 270 35% 12%;
+  --muted-foreground: 45 30% 55%;
+  --accent: 348 80% 55%;          /* crimson Stand */
+  --accent-foreground: 0 0% 100%;
   --destructive: 0 70% 55%;
   --destructive-foreground: 0 0% 100%;
-  --input: 222 35% 14%;
-  --ring: 220 100% 65%;
+  --input: 270 35% 13%;
+  --ring: 51 100% 55%;
 }
 
 @layer base {
@@ -114,71 +114,114 @@
   a, button, [data-hover], input, textarea, [role='button'] {
     cursor: none;
   }
-  
-  /* Anime card panel style */
-  .card-panel {
-    background: hsl(var(--card));
-    border: 1px solid hsl(var(--card-border));
-    border-radius: var(--radius);
-    box-shadow: 0 0 0 1px hsl(var(--primary) / 0.08), 0 4px 24px hsl(var(--primary) / 0.06);
-  }
-  .card-panel-glow {
-    background: hsl(var(--card));
-    border: 1px solid hsl(var(--primary) / 0.35);
-    border-radius: var(--radius);
-    box-shadow: 0 0 0 1px hsl(var(--primary) / 0.12), 0 0 24px hsl(var(--primary) / 0.12), 0 8px 32px hsl(var(--background) / 0.8);
-  }
-
-  /* Card corner decoration (top-left + bottom-right) */
-  .card-corner::before,
-  .card-corner::after {
-    content: '';
-    position: absolute;
-    width: 16px;
-    height: 16px;
-    border-color: hsl(var(--primary) / 0.5);
-    border-style: solid;
-  }
-  .card-corner::before {
-    top: 8px; left: 8px;
-    border-width: 2px 0 0 2px;
-  }
-  .card-corner::after {
-    bottom: 8px; right: 8px;
-    border-width: 0 2px 2px 0;
-  }
-
-  /* Anime-style section divider */
-  .anime-divider {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-  }
-  .anime-divider::before,
-  .anime-divider::after {
-    content: '';
-    flex: 1;
-    height: 1px;
-    background: linear-gradient(to right, transparent, hsl(var(--primary) / 0.5), transparent);
-  }
-
-  /* Blue flame / glow effects */
-  @keyframes flame-flicker {
-    0%, 100% { opacity: 0.6; transform: scaleY(1) translateY(0); }
-    25% { opacity: 0.9; transform: scaleY(1.05) translateY(-2px); }
-    75% { opacity: 0.7; transform: scaleY(0.98) translateY(1px); }
-  }
-  @keyframes pulse-glow {
-    0%, 100% { box-shadow: 0 0 8px hsl(var(--primary) / 0.4); }
-    50% { box-shadow: 0 0 20px hsl(var(--primary) / 0.7), 0 0 40px hsl(var(--primary) / 0.3); }
-  }
-  @keyframes float-card {
-    0%, 100% { transform: translateY(0px) rotate(-0.5deg); }
-    50% { transform: translateY(-6px) rotate(0.5deg); }
-  }
-  @keyframes scan-line {
-    0% { background-position: 0 0; }
-    100% { background-position: 0 100%; }
-  }
 }
+
+/* JoJo manga panel card */
+.jojo-panel {
+  background: hsl(var(--card));
+  border: 2px solid hsl(var(--foreground) / 0.15);
+  border-radius: var(--radius);
+  box-shadow: 4px 4px 0px hsl(var(--foreground) / 0.12), 0 0 0 1px hsl(var(--primary) / 0.1);
+  transition: all 0.2s ease;
+}
+.jojo-panel:hover {
+  box-shadow: 6px 6px 0px hsl(var(--primary) / 0.4), 0 0 20px hsl(var(--primary) / 0.15);
+  transform: translate(-2px, -2px);
+  border-color: hsl(var(--primary) / 0.4);
+}
+
+/* Halftone dot pattern */
+.halftone-bg {
+  background-image: radial-gradient(circle, hsl(var(--foreground) / 0.08) 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+
+/* Manga chapter title style */
+.manga-title {
+  font-family: 'Anton', sans-serif;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  position: relative;
+  display: inline-block;
+}
+.manga-title::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(to right, hsl(var(--primary)), hsl(var(--secondary)), transparent);
+}
+
+/* Stand speed lines (decorative) */
+.speed-lines {
+  background-image: repeating-conic-gradient(
+    hsl(var(--primary) / 0.03) 0deg, 
+    transparent 2deg, 
+    transparent 10deg
+  );
+}
+
+/* Gold shimmer animation */
+@keyframes gold-shimmer {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+.gold-text {
+  background: linear-gradient(90deg, hsl(51 100% 45%), hsl(51 100% 70%), hsl(45 90% 55%), hsl(51 100% 45%));
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: gold-shimmer 3s linear infinite;
+}
+
+/* Menacing effect — floating ♦ symbols */
+@keyframes menacing-float {
+  0%   { transform: translate(0, 0) rotate(0deg); opacity: 0; }
+  20%  { opacity: 0.8; }
+  80%  { opacity: 0.6; }
+  100% { transform: translate(var(--tx, 30px), var(--ty, -60px)) rotate(30deg); opacity: 0; }
+}
+
+/* Screen shake */
+@keyframes screen-shake {
+  0%, 100% { transform: translate(0, 0) rotate(0deg); }
+  10% { transform: translate(-8px, -4px) rotate(-0.5deg); }
+  20% { transform: translate(8px, 4px) rotate(0.5deg); }
+  30% { transform: translate(-6px, 6px) rotate(-0.3deg); }
+  40% { transform: translate(6px, -6px) rotate(0.3deg); }
+  50% { transform: translate(-4px, 2px) rotate(-0.2deg); }
+  60% { transform: translate(4px, -2px) rotate(0.2deg); }
+  70% { transform: translate(-2px, 4px) rotate(-0.1deg); }
+  80% { transform: translate(2px, -4px) rotate(0.1deg); }
+  90% { transform: translate(-1px, 1px); }
+}
+.screen-shake {
+  animation: screen-shake 0.6s ease-out;
+}
+
+@keyframes roller-fall {
+  0% { transform: translateY(-110vh) rotate(-5deg); }
+  70% { transform: translateY(0) rotate(2deg); }
+  80% { transform: translateY(-15px) rotate(-1deg) scaleY(1.05); }
+  90% { transform: translateY(5px) rotate(0.5deg) scaleY(0.92); }
+  100% { transform: translateY(0) rotate(0deg) scaleY(1); }
+}
+@keyframes muda-burst {
+  0% { transform: scale(0) rotate(-20deg); opacity: 0; }
+  60% { transform: scale(1.15) rotate(5deg); opacity: 1; }
+  100% { transform: scale(1) rotate(0deg); opacity: 1; }
+}
+@keyframes wryyyy-appear {
+  0% { transform: scale(3) rotate(-5deg); opacity: 0; filter: blur(20px); }
+  100% { transform: scale(1) rotate(-2deg); opacity: 1; filter: blur(0); }
+}
+@keyframes za-warudo-in {
+  0% { transform: scale(0.3) rotate(10deg); opacity: 0; }
+  60% { transform: scale(1.08) rotate(-2deg); opacity: 1; }
+  100% { transform: scale(1) rotate(0deg); opacity: 1; }
+}
+
 html { scroll-behavior: smooth; }

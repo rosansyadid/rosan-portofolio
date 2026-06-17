@@ -79,8 +79,8 @@ export default function CursorFollower() {
           height: isHovering ? 80 : isClicking ? 30 : 48,
           opacity: isVisible ? 1 : 0,
           background: isHovering
-            ? "radial-gradient(circle, rgba(96,165,250,0.35) 0%, rgba(96,165,250,0.08) 60%, transparent 80%)"
-            : "radial-gradient(circle, rgba(96,165,250,0.22) 0%, rgba(96,165,250,0.05) 60%, transparent 80%)",
+            ? "radial-gradient(circle, rgba(250,204,21,0.35) 0%, rgba(250,204,21,0.08) 60%, transparent 80%)"
+            : "radial-gradient(circle, rgba(250,204,21,0.22) 0%, rgba(250,204,21,0.05) 60%, transparent 80%)",
         }}
         transition={{ duration: 0.2 }}
       />
@@ -92,15 +92,15 @@ export default function CursorFollower() {
           y: dotY,
           translateX: "-50%",
           translateY: "-50%",
-          backgroundColor: "rgb(96,165,250)",
+          backgroundColor: "rgb(250,204,21)",
         }}
         animate={{
           width: isHovering ? 6 : isClicking ? 3 : 5,
           height: isHovering ? 6 : isClicking ? 3 : 5,
           opacity: isVisible ? (isHovering ? 1 : 0.85) : 0,
           boxShadow: isHovering
-            ? "0 0 12px 3px rgba(96,165,250,0.7)"
-            : "0 0 6px 1px rgba(96,165,250,0.4)",
+            ? "0 0 12px 3px rgba(250,204,21,0.7)"
+            : "0 0 6px 1px rgba(250,204,21,0.4)",
         }}
         transition={{ duration: 0.15 }}
       />

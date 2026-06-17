@@ -50,27 +50,21 @@ function ProjectCard({ project, index }: { project: typeof projects[0], index: n
       style={{ transform: `perspective(800px) rotateX(${tilt.x}deg) rotateY(${tilt.y}deg)`, transition: 'transform 0.1s ease' }}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
-      className="group relative card-panel-glow p-8 flex flex-col h-full overflow-hidden"
+      className="group relative jojo-panel p-8 flex flex-col h-full overflow-hidden"
     >
-      {/* Card Corner Decoration */}
-      <div className="absolute top-2 left-2 w-3 h-3 border-t border-l border-primary/50" />
-      <div className="absolute top-2 right-2 w-3 h-3 border-t border-r border-primary/50" />
-      <div className="absolute bottom-2 left-2 w-3 h-3 border-b border-l border-primary/50" />
-      <div className="absolute bottom-2 right-2 w-3 h-3 border-b border-r border-primary/50" />
-      
       {/* Shine Line */}
-      <div className="absolute inset-0 z-0 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity">
-        <div className="absolute top-0 bottom-0 w-[200%] bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-0 transition-transform duration-700 ease-out" />
+      <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
+        <div className="absolute top-0 bottom-0 w-[40%] bg-gradient-to-r from-transparent via-white/8 to-transparent -left-[40%] group-hover:left-[140%] transition-all duration-700 ease-in-out" />
       </div>
 
       {/* Project Number Badge */}
-      <div className="absolute top-6 right-6 font-mono text-primary/60 text-xs font-bold">
+      <div className="absolute top-6 right-6 font-['Share_Tech_Mono'] text-primary/40 text-xs font-bold">
         {(index + 1).toString().padStart(2, '0')}
       </div>
 
       <div className="flex justify-between items-start mb-6 relative z-10">
-        <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary text-xl shadow-[0_0_10px_hsl(var(--primary)/0.2)]">
-          ◈
+        <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary text-xl">
+          ♦
         </div>
         <a 
           href={project.github} 
@@ -82,8 +76,8 @@ function ProjectCard({ project, index }: { project: typeof projects[0], index: n
         </a>
       </div>
       
-      <h3 className="text-2xl font-['Rajdhani'] font-bold tracking-wide mb-4 text-foreground relative z-10">{project.title}</h3>
-      <p className="text-muted-foreground font-sans font-medium mb-8 flex-grow leading-relaxed relative z-10">
+      <h3 className="text-2xl font-['Anton'] tracking-wide mb-4 text-foreground relative z-10">{project.title}</h3>
+      <p className="text-muted-foreground font-['DM_Sans'] mb-8 flex-grow leading-relaxed relative z-10">
         {project.description}
       </p>
       
@@ -112,8 +106,7 @@ export default function Projects() {
           transition={{ duration: 0.6 }}
         >
           <div className="mb-16">
-            <h2 className="text-4xl md:text-5xl font-['Rajdhani'] font-bold tracking-tight mb-4">Featured Projects</h2>
-            <div className="anime-divider"></div>
+            <h2 className="text-4xl md:text-5xl manga-title text-foreground mb-4">Featured Projects</h2>
           </div>
 
           <div className="grid md:grid-cols-2 gap-10">

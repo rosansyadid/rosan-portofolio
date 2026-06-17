@@ -25,8 +25,7 @@ export default function Skills() {
         >
           {/* Section Header */}
           <div className="mb-16">
-            <h2 className="text-4xl md:text-5xl font-['Rajdhani'] font-bold tracking-tight mb-4">Skills & Proficiency</h2>
-            <div className="anime-divider"></div>
+            <h2 className="text-4xl md:text-5xl manga-title text-foreground mb-4">Skills & Proficiency</h2>
           </div>
 
           <div className="grid md:grid-cols-2 gap-x-12 gap-y-8">
@@ -37,14 +36,14 @@ export default function Skills() {
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="card-panel p-5"
+                className="jojo-panel p-5"
               >
                 <div className="flex justify-between items-center mb-4">
                   <div className="flex items-center gap-3">
                     <skill.icon size={24} style={{ color: skill.color }} />
-                    <span className="font-semibold font-sans text-lg">{skill.name}</span>
+                    <span className="font-['DM_Sans'] font-bold text-lg text-foreground">{skill.name}</span>
                   </div>
-                  <span className="font-mono text-primary font-bold">{skill.percentage}%</span>
+                  <span className="font-['Share_Tech_Mono'] text-primary font-bold text-right">{skill.percentage}%</span>
                 </div>
                 {/* Progress bar */}
                 <div className="h-2.5 w-full bg-muted border border-border/50 rounded-full overflow-hidden">
@@ -53,9 +52,9 @@ export default function Skills() {
                     whileInView={{ width: `${skill.percentage}%` }}
                     viewport={{ once: true }}
                     transition={{ duration: 1, delay: 0.2 + (index * 0.1), ease: "easeOut" }}
-                    className="h-full bg-gradient-to-r from-primary to-accent rounded-full relative"
+                    className="h-full bg-gradient-to-r from-primary to-secondary rounded-full relative"
                   >
-                    <div className="absolute right-0 top-1/2 -translate-y-1/2 w-3 h-3 bg-accent rounded-full shadow-[0_0_8px] shadow-accent" />
+                    <div className="absolute right-0 top-1/2 -translate-y-1/2 w-3 h-3 bg-white rounded-full shadow-[0_0_8px_hsl(var(--primary))]" />
                   </motion.div>
                 </div>
               </motion.div>
