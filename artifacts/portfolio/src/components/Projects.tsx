@@ -1,6 +1,5 @@
 import { motion } from "framer-motion";
 import { FaGithub } from "react-icons/fa";
-import { ExternalLink } from "lucide-react";
 
 const projects = [
   {
@@ -39,12 +38,11 @@ export default function Projects() {
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
-          <div className="flex items-center gap-4 mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold">Featured Projects</h2>
-            <div className="h-[1px] bg-border flex-grow" />
+          <div className="flex items-center justify-center mb-16">
+            <h2 className="text-4xl md:text-5xl font-['Bangers'] tracking-wider text-center border-b-4 border-foreground pb-2 px-8 inline-block">Featured Projects</h2>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-8">
+          <div className="grid md:grid-cols-2 gap-10">
             {projects.map((project, index) => (
               <motion.div
                 key={project.title}
@@ -52,24 +50,24 @@ export default function Projects() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="group relative bg-background border border-border p-8 rounded-xl hover:border-primary/50 transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_8px_30px_rgb(0,0,0,0.12)] dark:hover:shadow-[0_8px_30px_rgba(var(--primary),0.1)] flex flex-col h-full"
+                className="group relative bg-card cartoon-box-lg p-8 hover:-translate-y-2 hover:translate-x-[-2px] hover:shadow-[8px_8px_0px_var(--color-foreground)] transition-all duration-300 flex flex-col h-full"
               >
                 <div className="flex justify-between items-start mb-6">
-                  <div className="p-3 bg-secondary rounded-lg text-primary">
-                    <ExternalLink size={24} />
+                  <div className="p-2 bg-primary rounded-full border-2 border-foreground shadow-[2px_2px_0px_var(--color-foreground)] text-2xl flex items-center justify-center w-12 h-12">
+                    📜
                   </div>
                   <a 
                     href={project.github} 
                     target="_blank" 
                     rel="noopener noreferrer"
-                    className="text-muted-foreground hover:text-primary transition-colors p-2"
+                    className="text-foreground hover:text-primary transition-colors p-2"
                   >
-                    <FaGithub size={24} />
+                    <FaGithub size={28} />
                   </a>
                 </div>
                 
-                <h3 className="text-2xl font-bold mb-4 group-hover:text-primary transition-colors">{project.title}</h3>
-                <p className="text-muted-foreground mb-8 flex-grow">
+                <h3 className="text-3xl font-['Bangers'] tracking-wide mb-4 text-foreground">{project.title}</h3>
+                <p className="text-muted-foreground font-sans font-medium mb-8 flex-grow leading-relaxed">
                   {project.description}
                 </p>
                 
@@ -77,7 +75,7 @@ export default function Projects() {
                   {project.tech.map(tech => (
                     <span 
                       key={tech} 
-                      className="px-3 py-1 bg-secondary text-secondary-foreground text-xs font-mono rounded-full"
+                      className="px-4 py-1 bg-secondary text-secondary-foreground text-sm font-bold font-sans rounded-full border-2 border-foreground/30"
                     >
                       {tech}
                     </span>

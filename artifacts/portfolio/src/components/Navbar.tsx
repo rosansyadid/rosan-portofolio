@@ -47,12 +47,12 @@ export default function Navbar() {
   return (
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled ? "bg-background/80 backdrop-blur-md border-b border-border py-4" : "bg-transparent py-6"
+        isScrolled ? "bg-card border-b-[3px] border-foreground py-4" : "bg-transparent py-6"
       }`}
     >
       <div className="container mx-auto px-6 flex items-center justify-between">
-        <a href="#home" className="text-2xl font-bold font-mono tracking-tighter hover:text-primary transition-colors">
-          &lt;R<span className="text-primary">/</span>S&gt;
+        <a href="#home" className="text-3xl font-['Bangers'] tracking-wider text-primary hover:text-primary/80 transition-colors">
+          ⚡ R/S
         </a>
 
         {/* Desktop Nav */}
@@ -61,16 +61,17 @@ export default function Navbar() {
             <a
               key={link.name}
               href={link.href}
-              className={`text-sm font-medium transition-colors hover:text-primary ${
+              className={`relative text-lg font-bold font-sans transition-colors hover:text-primary ${
                 activeSection === link.href.substring(1) ? "text-primary" : "text-muted-foreground"
-              }`}
+              } group`}
             >
               {link.name}
+              <span className="absolute left-0 bottom-[-4px] w-full h-[3px] bg-primary transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left rounded-full" />
             </a>
           ))}
           <button
             onClick={toggleTheme}
-            className="p-2 rounded-full hover:bg-muted transition-colors text-foreground"
+            className="p-2 rounded-full cartoon-box bg-background text-foreground hover:bg-muted transition-colors"
             data-testid="button-theme-toggle"
           >
             {isDark ? <Sun size={20} /> : <Moon size={20} />}
@@ -81,7 +82,7 @@ export default function Navbar() {
         <div className="flex md:hidden items-center gap-4">
           <button
             onClick={toggleTheme}
-            className="p-2 rounded-full hover:bg-muted transition-colors text-foreground"
+            className="p-2 rounded-full cartoon-box bg-background text-foreground hover:bg-muted transition-colors"
           >
             {isDark ? <Sun size={20} /> : <Moon size={20} />}
           </button>
@@ -101,14 +102,14 @@ export default function Navbar() {
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
-            className="absolute top-full left-0 right-0 bg-background border-b border-border p-6 shadow-xl md:hidden flex flex-col gap-4"
+            className="absolute top-full left-0 right-0 bg-background border-b-[3px] border-foreground p-6 shadow-xl md:hidden flex flex-col gap-4"
           >
             {navLinks.map((link) => (
               <a
                 key={link.name}
                 href={link.href}
                 onClick={() => setIsMobileMenuOpen(false)}
-                className={`text-lg font-medium transition-colors hover:text-primary ${
+                className={`text-lg font-bold font-sans transition-colors hover:text-primary ${
                   activeSection === link.href.substring(1) ? "text-primary" : "text-muted-foreground"
                 }`}
               >

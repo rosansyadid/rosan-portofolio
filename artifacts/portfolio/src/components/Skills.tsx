@@ -23,9 +23,11 @@ export default function Skills() {
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
-          <div className="flex items-center gap-4 mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold">Skills & Proficiency</h2>
-            <div className="h-[1px] bg-border flex-grow" />
+          {/* Section Header */}
+          <div className="flex items-center justify-center mb-16">
+            <div className="h-[3px] bg-foreground flex-grow max-w-[100px]" />
+            <h2 className="text-4xl md:text-5xl font-['Bangers'] tracking-wider text-center mx-6">Skills & Proficiency</h2>
+            <div className="h-[3px] bg-foreground flex-grow max-w-[100px]" />
           </div>
 
           <div className="grid md:grid-cols-2 gap-x-16 gap-y-10">
@@ -40,21 +42,24 @@ export default function Skills() {
               >
                 <div className="flex justify-between items-center">
                   <div className="flex items-center gap-3">
-                    <skill.icon size={24} style={{ color: skill.color }} />
-                    <span className="font-semibold">{skill.name}</span>
+                    <skill.icon size={28} style={{ color: skill.color }} className="drop-shadow-md" />
+                    <span className="font-bold font-sans text-lg">{skill.name}</span>
                   </div>
-                  <span className="text-sm font-mono text-muted-foreground">{skill.percentage}%</span>
+                  <span className="bg-primary text-primary-foreground text-sm font-['Bangers'] px-3 py-1 cartoon-box rounded-full tracking-wider">{skill.percentage}%</span>
                 </div>
-                <div className="h-3 w-full bg-secondary rounded-full overflow-hidden">
+                {/* Cartoon Track */}
+                <div className="h-5 w-full bg-muted border-[3px] border-foreground/40 rounded-full overflow-hidden shadow-inner">
                   <motion.div
                     initial={{ width: 0 }}
                     whileInView={{ width: `${skill.percentage}%` }}
                     viewport={{ once: true }}
                     transition={{ duration: 1, delay: 0.2 + (index * 0.1), ease: "easeOut" }}
-                    className="h-full bg-primary rounded-full relative"
-                  >
-                    <div className="absolute inset-0 bg-white/20" />
-                  </motion.div>
+                    className="h-full border-r-[3px] border-foreground/40"
+                    style={{ 
+                      backgroundColor: skill.color,
+                      backgroundImage: 'repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(255,255,255,0.2) 10px, rgba(255,255,255,0.2) 20px)'
+                    }}
+                  />
                 </div>
               </motion.div>
             ))}

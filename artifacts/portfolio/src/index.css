@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bangers&family=Nunito:wght@400;500;600;700;800&family=VT323&display=swap');
 @import "tailwindcss";
 @import "tw-animate-css";
 @plugin "@tailwindcss/typography";
@@ -51,10 +51,9 @@
 }
 
 :root {
-  --app-font-sans: 'Outfit', sans-serif;
+  --app-font-sans: 'Nunito', sans-serif;
+  --app-font-mono: 'VT323', monospace;
   --app-font-serif: Georgia, serif;
-  --app-font-mono: 'Space Mono', monospace;
-  --radius: 0.5rem;
 
   /* LIGHT MODE */
   --button-outline: rgba(0,0,0, .10);
@@ -63,34 +62,32 @@
   --elevate-1: rgba(0,0,0, .03);
   --elevate-2: rgba(0,0,0, .08);
 
-  --background: 0 0% 100%;
-  --foreground: 240 10% 4%;
-  --border: 0 0% 90%;
-  --card: 0 0% 98%;
-  --card-foreground: 240 10% 4%;
-  --card-border: 0 0% 90%;
-  
-  --popover: 0 0% 100%;
-  --popover-foreground: 240 10% 4%;
-  --popover-border: 0 0% 90%;
-
-  --primary: 30 100% 50%;
-  --primary-foreground: 0 0% 100%;
-  
-  --secondary: 240 5% 90%;
-  --secondary-foreground: 240 10% 4%;
-  
-  --muted: 0 0% 95%;
-  --muted-foreground: 240 5% 45%;
-  
-  --accent: 30 100% 50%;
+  --background: 40 35% 93%;        /* warm parchment */
+  --foreground: 25 60% 12%;        /* dark ink brown */
+  --border: 30 40% 65%;            /* aged paper border */
+  --card: 42 50% 97%;              /* lighter scroll parchment */
+  --card-foreground: 25 60% 12%;
+  --card-border: 30 40% 60%;
+  --popover: 42 50% 97%;
+  --popover-foreground: 25 60% 12%;
+  --popover-border: 30 40% 60%;
+  --primary: 32 95% 48%;           /* Kung Fu gold/amber */
+  --primary-foreground: 25 60% 8%;
+  --secondary: 145 45% 35%;        /* bamboo jade green */
+  --secondary-foreground: 0 0% 100%;
+  --muted: 40 25% 87%;
+  --muted-foreground: 25 40% 40%;
+  --accent: 0 75% 50%;             /* kung fu red */
   --accent-foreground: 0 0% 100%;
-  
   --destructive: 0 84% 60%;
   --destructive-foreground: 0 0% 100%;
-  
-  --input: 0 0% 85%;
-  --ring: 30 100% 50%;
+  --input: 40 30% 82%;
+  --ring: 32 95% 48%;
+
+  --radius: 1rem;
+  --cartoon-border: 3px solid hsl(25 60% 12%);
+  --cartoon-shadow: 4px 4px 0px hsl(25 60% 12%);
+  --cartoon-shadow-lg: 6px 6px 0px hsl(25 60% 12%);
 }
 
 .dark {
@@ -100,35 +97,27 @@
   --elevate-1: rgba(255,255,255, .04);
   --elevate-2: rgba(255,255,255, .09);
 
-  --background: 240 10% 4%;
-  --foreground: 210 20% 98%;
-  --border: 240 5% 15%;
-  
-  --card: 240 10% 6%;
-  --card-foreground: 210 20% 98%;
-  --card-border: 240 5% 15%;
-  
-  --popover: 240 10% 6%;
-  --popover-foreground: 210 20% 98%;
-  --popover-border: 240 5% 15%;
-  
-  --primary: 30 100% 55%;
-  --primary-foreground: 20 100% 10%;
-  
-  --secondary: 240 5% 15%;
-  --secondary-foreground: 210 20% 98%;
-  
-  --muted: 240 5% 20%;
-  --muted-foreground: 240 5% 65%;
-  
-  --accent: 30 100% 55%;
-  --accent-foreground: 20 100% 10%;
-  
-  --destructive: 0 62.8% 30.6%;
-  --destructive-foreground: 210 20% 98%;
-  
-  --input: 240 5% 20%;
-  --ring: 30 100% 55%;
+  --background: 168 35% 8%;        /* deep bamboo forest night */
+  --foreground: 42 80% 92%;        /* warm parchment glow */
+  --border: 168 25% 22%;
+  --card: 168 35% 11%;
+  --card-foreground: 42 80% 92%;
+  --card-border: 168 25% 22%;
+  --popover: 168 35% 11%;
+  --popover-foreground: 42 80% 92%;
+  --popover-border: 168 25% 22%;
+  --primary: 40 100% 58%;          /* glowing gold */
+  --primary-foreground: 25 60% 8%;
+  --secondary: 168 40% 20%;        /* dark jade */
+  --secondary-foreground: 42 80% 92%;
+  --muted: 168 30% 15%;
+  --muted-foreground: 42 40% 65%;
+  --accent: 0 75% 55%;             /* vibrant kung fu red */
+  --accent-foreground: 0 0% 100%;
+  --destructive: 0 62.8% 45%;
+  --destructive-foreground: 42 80% 92%;
+  --input: 168 30% 18%;
+  --ring: 40 100% 58%;
 }
 
 @layer base {
@@ -142,5 +131,29 @@
   a, button, [data-hover], input, textarea, [role='button'] {
     cursor: none;
   }
+  
+  .cartoon-box {
+    border: var(--cartoon-border);
+    box-shadow: var(--cartoon-shadow);
+    border-radius: var(--radius);
+  }
+  .cartoon-box-lg {
+    border: var(--cartoon-border);
+    box-shadow: var(--cartoon-shadow-lg);
+    border-radius: var(--radius);
+  }
 }
 html { scroll-behavior: smooth; }
+
+@keyframes float-bob {
+  0%, 100% { transform: translateY(0px) rotate(-1deg); }
+  50% { transform: translateY(-8px) rotate(1deg); }
+}
+@keyframes spin-slow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+@keyframes wiggle {
+  0%, 100% { transform: rotate(-3deg); }
+  50% { transform: rotate(3deg); }
+}
