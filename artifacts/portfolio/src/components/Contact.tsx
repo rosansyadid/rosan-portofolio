@@ -14,7 +14,7 @@ export default function Contact() {
   ];
 
   return (
-    <section ref={ref} id="contact" className="py-32 md:py-48 relative overflow-hidden bg-card/20">
+    <section ref={ref} id="contact" className="py-16 md:py-20 relative overflow-hidden bg-card/20">
       <div className="deco-number">04</div>
 
       <div className="container mx-auto px-6 md:px-12 lg:px-20 max-w-7xl">
@@ -23,9 +23,9 @@ export default function Contact() {
           <span className="section-label">♣ Contact — IV</span>
         </motion.div>
 
-        <div className="grid md:grid-cols-2 gap-16 md:gap-24 items-start">
+        <div className="grid md:grid-cols-2 gap-10 md:gap-12 items-start">
           <div>
-            <div className="overflow-hidden mb-2">
+            <div className="overflow-hidden mb-1">
               <motion.h2
                 className="font-['Anton'] text-5xl md:text-7xl uppercase tracking-wide"
                 initial={{ y: "100%" }}
@@ -35,7 +35,7 @@ export default function Contact() {
                 Let's
               </motion.h2>
             </div>
-            <div className="overflow-hidden mb-10">
+            <div className="overflow-hidden mb-8">
               <motion.h2
                 className="font-['Anton'] text-5xl md:text-7xl uppercase tracking-wide"
                 style={{ WebkitTextStroke: "1px hsl(var(--primary) / 0.7)", color: "transparent" }}

@@ -34,6 +34,7 @@ export default function CursorFollower() {
         cursorY.set(mouseY);
       });
 
+
       const target = e.target as HTMLElement;
       const hoverable = target.closest("a, button, [data-hover], input, textarea, [role='button']");
       setIsHovering(!!hoverable);
@@ -66,8 +67,9 @@ export default function CursorFollower() {
 
   return (
     <>
+      {/* subtle pulsing red orb behind the dot */}
       <motion.div
-        className="pointer-events-none fixed top-0 left-0 z-[9999] rounded-full mix-blend-screen"
+        className="pointer-events-none fixed top-0 left-0 z-[9997] rounded-full"
         style={{
           x: orbX,
           y: orbY,
@@ -75,16 +77,17 @@ export default function CursorFollower() {
           translateY: "-50%",
         }}
         animate={{
-          width: isHovering ? 80 : isClicking ? 30 : 48,
-          height: isHovering ? 80 : isClicking ? 30 : 48,
-          opacity: isVisible ? 1 : 0,
+          width: isHovering ? 64 : isClicking ? 28 : 48,
+          height: isHovering ? 64 : isClicking ? 28 : 48,
+          opacity: isVisible ? (isHovering ? 0.75 : 0.45) : 0,
           background: isHovering
-            ? "radial-gradient(circle, rgba(250,204,21,0.35) 0%, rgba(250,204,21,0.08) 60%, transparent 80%)"
-            : "radial-gradient(circle, rgba(250,204,21,0.22) 0%, rgba(250,204,21,0.05) 60%, transparent 80%)",
+            ? "radial-gradient(circle, rgba(239,68,68,0.28) 0%, rgba(239,68,68,0.08) 55%, transparent 85%)"
+            : "radial-gradient(circle, rgba(239,68,68,0.18) 0%, rgba(239,68,68,0.04) 55%, transparent 85%)",
         }}
-        transition={{ duration: 0.2 }}
+        transition={{ duration: 0.22 }}
       />
 
+      {/* main red cursor dot */}
       <motion.div
         className="pointer-events-none fixed top-0 left-0 z-[9999] rounded-full"
         style={{
@@ -92,17 +95,17 @@ export default function CursorFollower() {
           y: dotY,
           translateX: "-50%",
           translateY: "-50%",
-          backgroundColor: "rgb(250,204,21)",
+          backgroundColor: "rgb(239,68,68)",
         }}
         animate={{
-          width: isHovering ? 6 : isClicking ? 3 : 5,
-          height: isHovering ? 6 : isClicking ? 3 : 5,
-          opacity: isVisible ? (isHovering ? 1 : 0.85) : 0,
+          width: isHovering ? 8 : isClicking ? 5 : 6,
+          height: isHovering ? 8 : isClicking ? 5 : 6,
+          opacity: isVisible ? (isHovering ? 1 : 0.95) : 0,
           boxShadow: isHovering
-            ? "0 0 12px 3px rgba(250,204,21,0.7)"
-            : "0 0 6px 1px rgba(250,204,21,0.4)",
+            ? "0 0 14px 4px rgba(239,68,68,0.6)"
+            : "0 0 8px 2px rgba(239,68,68,0.3)",
         }}
-        transition={{ duration: 0.15 }}
+        transition={{ duration: 0.12 }}
       />
     </>
   );

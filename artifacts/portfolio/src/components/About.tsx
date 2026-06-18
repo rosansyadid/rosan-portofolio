@@ -28,14 +28,14 @@ export default function About() {
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
-    <section ref={ref} id="about" className="py-32 md:py-48 relative overflow-hidden">
+    <section ref={ref} id="about" className="py-16 md:py-20 relative overflow-hidden">
       {/* Large deco number */}
       <div className="deco-number select-none pointer-events-none">01</div>
 
       <div className="container mx-auto px-6 md:px-12 lg:px-20 max-w-7xl">
         {/* Section label */}
         <motion.div
-          className="flex items-center gap-4 mb-16"
+          className="flex items-center gap-4 mb-8"
           initial={{ opacity: 0 }}
           animate={isInView ? { opacity: 1 } : {}}
           transition={{ duration: 0.6 }}
@@ -45,7 +45,7 @@ export default function About() {
         </motion.div>
 
         {/* Split layout */}
-        <div className="grid md:grid-cols-2 gap-16 md:gap-24 items-start">
+        <div className="grid md:grid-cols-2 gap-10 md:gap-12 items-start">
           <div>
             <div className="overflow-hidden mb-6">
               <motion.h2

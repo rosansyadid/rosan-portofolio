@@ -6,28 +6,28 @@ import { ArrowUpRight } from "lucide-react";
 const projects = [
   {
     title: "AI Schedule Generator",
-    description: "A Flutter app using Hive DB for offline storage and Google Gemini AI to generate 100% conflict-free weekly schedules.",
+    description: "Manually creating class timetables is complex and prone to errors. To solve this, I built a Flutter app utilizing Hive DB for offline local storage and integrated Google Gemini AI to analyze scheduling constraints, instantly generating 100% conflict-free weekly schedules with a single click.",
     tech: ["Flutter", "Google AI Studio", "Firebase"],
     github: "https://github.com/rosansyadid/Schedule-Generator",
     value: "A", suit: "♠", red: false,
   },
   {
     title: "Newsly",
-    description: "A real-time news portal using GetX for state management and the http package to consume CNN news endpoints.",
+    description: "Retrieving and displaying real-time news efficiently requires clean state coordination and reliable API handling. To solve this, I developed a Flutter application leveraging GetX for lightweight state management and navigation, integrating the http package to consume and parse real-time CNN news endpoints, resulting in a smooth, latency-free news portal with robust data formatting.",
     tech: ["Flutter", "GetX", "HTTP", "CNN API"],
     github: "https://github.com/rosansyadid/Newsly",
     value: "2", suit: "♥", red: true,
   },
   {
     title: "Ticket Scanner App",
-    description: "A mobile app for event entry using mobile_scanner for camera processing and Dio for Vercel-hosted backend validation.",
+    description: "Securing event entry and preventing fraudulent ticket check-ins requires fast, reliable hardware-to-cloud verification. To solve this, I developed a Flutter mobile application utilizing mobile_scanner for real-time, hardware-accelerated camera processing and Dio to execute secure HTTP post-validation handshakes against a Vercel-hosted ticketing backend, resulting in instantaneous, conflict-free ticket redemptions.",
     tech: ["Flutter", "Dio", "Mobile Scanner"],
     github: "https://github.com/rosansyadid/qr_scanner_app",
     value: "3", suit: "♦", red: true,
   },
   {
     title: "Invoice Website",
-    description: "A multi-role enterprise invoice portal with RBAC for client self-service and admin management.",
+    description: "Coordinating client billing, transaction tracking, and administrative financial audits manually is prone to processing delays and unauthorized access. To solve this, I co-developed a multi-role enterprise invoice portal utilizing Laravel and Breeze Auth, implementing strict role-based access control (RBAC) to allow clients self-service invoice creation while giving admins centralized command over global payment statuses and user management, resulting in an audited, high-integrity financial workflow..",
     tech: ["Laravel", "Breeze Auth", "MySQL"],
     github: "https://github.com/rosansyadid/invoice-finalproject",
     value: "4", suit: "♣", red: false,
@@ -46,7 +46,7 @@ function CardCorner({ value, suit, red }: { value: string; suit: string; red: bo
 function CardBack({ suit, value, red, rotateDir = 180 }: { suit: string; value: string; red: boolean; rotateDir?: number }) {
   return (
     <div
-      className="absolute inset-0 jojo-panel flex items-center justify-center overflow-hidden"
+      className="absolute inset-0 flex items-center justify-center overflow-hidden opacity-40 pointer-events-none bg-card border border-primary/45 rounded-none"
       style={{
         backfaceVisibility: "hidden",
         WebkitBackfaceVisibility: "hidden",
@@ -56,11 +56,11 @@ function CardBack({ suit, value, red, rotateDir = 180 }: { suit: string; value: 
       <div className="absolute inset-0 card-back-pattern" />
       <div
         className="relative z-10 font-serif select-none"
-        style={{ fontSize: "clamp(4rem, 10vw, 7rem)", color: "hsl(var(--primary) / 0.18)" }}
+        style={{ fontSize: "clamp(4rem, 10vw, 7rem)", color: "hsl(var(--primary) / 0.12)" }}
       >
         {suit}
       </div>
-      <div className="absolute inset-3 border border-primary/15 rounded-sm pointer-events-none" />
+      <div className="absolute inset-3 border border-primary/12 rounded-sm pointer-events-none" />
       <div className="absolute top-3 left-4 z-10">
         <CardCorner value={value} suit={suit} red={red} />
       </div>
@@ -85,21 +85,21 @@ function ProjectCard({ project, index }: { project: typeof projects[0]; index: n
   const handleMouseLeave = () => setTilt({ x: 0, y: 0 });
 
   return (
-    <div ref={ref} style={{ perspective: "1200px" }} className="h-full">
+    <div ref={ref} style={{ perspective: "1200px" }} className="h-full min-h-[460px] w-full">
       <motion.div
         className="relative h-full"
-        style={{ transformStyle: "preserve-3d" }}
-        initial={{ rotateY: 180 }}
-        animate={isInView ? { rotateY: 0 } : { rotateY: 180 }}
-        transition={{ duration: 0.9, delay: 0.1 + index * 0.18, ease: [0.16, 1, 0.3, 1] }}
+        style={{ transformStyle: "preserve-3d", transformOrigin: "center center" }}
+        initial={{ rotateY: 180, opacity: 0 }}
+        animate={isInView ? { rotateY: 0, opacity: 1 } : { rotateY: 180, opacity: 0 }}
+        transition={{ duration: 0.8, delay: 0.06 + index * 0.12, ease: [0.16, 1, 0.3, 1] }}
       >
         {/* BACK face — card back pattern */}
         <CardBack suit={project.suit} value={project.value} red={project.red} rotateDir={180} />
 
         {/* FRONT face */}
         <div
-          className="h-full"
-          style={{ backfaceVisibility: "hidden", WebkitBackfaceVisibility: "hidden" }}
+          className="absolute inset-0 h-full"
+          style={{ backfaceVisibility: "hidden", WebkitBackfaceVisibility: "hidden", transform: "rotateY(0deg)" }}
         >
           <div
             onMouseMove={handleMouseMove}
@@ -110,7 +110,7 @@ function ProjectCard({ project, index }: { project: typeof projects[0]; index: n
               height: "100%",
             }}
           >
-            <div className="group relative jojo-panel p-8 flex flex-col h-full overflow-hidden">
+            <div className="group relative rounded-none p-5 flex flex-col h-full overflow-hidden bg-card border border-primary/45">
               {/* Shine sweep */}
               <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
                 <div className="absolute top-0 bottom-0 w-[40%] bg-gradient-to-r from-transparent via-white/6 to-transparent -left-[40%] group-hover:left-[140%] transition-all duration-700 ease-in-out" />
@@ -124,7 +124,7 @@ function ProjectCard({ project, index }: { project: typeof projects[0]; index: n
                 <CardCorner value={project.value} suit={project.suit} red={project.red} />
               </div>
 
-              <div className="flex justify-end items-start mb-4 relative z-10 pt-7">
+              <div className="flex justify-end items-start mb-2 relative z-10 pt-2">
                 <a
                   href={project.github}
                   target="_blank"
@@ -165,10 +165,10 @@ export default function Projects() {
   const [featured, ...rest] = projects;
 
   return (
-    <section ref={ref} id="projects" className="py-32 md:py-48 relative overflow-hidden">
+    <section ref={ref} id="projects" className="py-8 md:py-12 relative overflow-hidden">
       <div className="deco-number">03</div>
 
-      <div className="container mx-auto px-6 md:px-12 lg:px-20 max-w-7xl">
+      <div className="container mx-auto px-4 md:px-8 lg:px-10 max-w-6xl">
         <motion.div
           className="flex items-center gap-4 mb-6"
           initial={{ opacity: 0 }}
@@ -179,7 +179,7 @@ export default function Projects() {
           <span className="section-label">♦ Projects — III</span>
         </motion.div>
 
-        <div className="overflow-hidden mb-16">
+        <div className="overflow-hidden mb-6">
           <motion.h2
             className="font-['Anton'] text-5xl md:text-7xl uppercase tracking-wide"
             initial={{ y: "100%" }}
@@ -191,21 +191,22 @@ export default function Projects() {
         </div>
 
         {/* FEATURED — Ace of Spades, flips from the left */}
-        <div ref={featuredRef} style={{ perspective: "1600px" }} className="mb-8">
+        <div ref={featuredRef} style={{ perspective: "1600px" }} className="mt-6 mb-6 min-h-[300px] w-full">
           <motion.div
-            className="relative"
-            style={{ transformStyle: "preserve-3d" }}
-            initial={{ rotateY: -180 }}
-            animate={featuredInView ? { rotateY: 0 } : { rotateY: -180 }}
-            transition={{ duration: 1.1, ease: [0.16, 1, 0.3, 1] }}
+            className="relative h-full"
+            style={{ transformStyle: "preserve-3d", transformOrigin: "center center" }}
+            initial={{ rotateY: -180, opacity: 0 }}
+            animate={featuredInView ? { rotateY: 0, opacity: 1 } : { rotateY: -180, opacity: 0 }}
+            transition={{ duration: 1.0, ease: [0.16, 1, 0.3, 1] }}
           >
             {/* Featured BACK face */}
             <div
-              className="absolute inset-0 jojo-panel flex items-center justify-center overflow-hidden"
+              className="absolute inset-0 flex items-center justify-center overflow-hidden bg-card border border-primary/45 rounded-none"
               style={{
                 backfaceVisibility: "hidden",
                 WebkitBackfaceVisibility: "hidden",
                 transform: "rotateY(-180deg)",
+                opacity: 0.28,
               }}
             >
               <div className="absolute inset-0 card-back-pattern" />
@@ -226,7 +227,7 @@ export default function Projects() {
 
             {/* Featured FRONT face */}
             <div
-              className="jojo-panel p-8 md:p-12 group relative overflow-hidden"
+              className="rounded-none p-6 md:p-8 group relative overflow-hidden bg-card border border-primary/45"
               style={{ backfaceVisibility: "hidden", WebkitBackfaceVisibility: "hidden" }}
             >
               <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
@@ -240,7 +241,7 @@ export default function Projects() {
                 <CardCorner value="A" suit="♠" red={false} />
               </div>
 
-              <div className="relative z-10 grid md:grid-cols-2 gap-8 md:gap-16 items-end pt-8">
+              <div className="relative z-10 grid md:grid-cols-2 gap-5 md:gap-8 items-end pt-4">
                 <div>
                   <div className="section-label mb-4">♠ Ace — Featured</div>
                   <h3 className="font-['Anton'] text-4xl md:text-5xl text-foreground mb-5 tracking-wide group-hover:text-primary transition-colors duration-300">
@@ -278,7 +279,7 @@ export default function Projects() {
         </div>
 
         {/* Remaining projects — flip in staggered */}
-        <div className="grid md:grid-cols-3 gap-6">
+        <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-4 items-stretch">
           {rest.map((project, index) => (
             <ProjectCard key={project.title} project={project} index={index} />
           ))}

@@ -55,11 +55,11 @@ export default function Hero() {
           <div className="absolute -left-10 bottom-[-8%] select-none leading-none" style={{ fontFamily: "serif", fontSize: "clamp(8rem, 18vw, 22rem)", color: "hsl(var(--primary) / 0.035)" }}>♥</div>
         </motion.div>
 
-        <motion.div className="relative z-10 flex flex-col justify-center min-h-screen px-6 md:px-12 lg:px-20 pt-24 pb-12" style={{ y: textY, opacity }}>
+        <motion.div className="relative z-10 flex flex-col justify-center min-h-screen px-6 md:px-12 lg:px-20 pt-16 pb-8" style={{ y: textY, opacity }}>
 
           {/* Label row */}
           <motion.div
-            className="flex items-center gap-4 mb-8 md:mb-12"
+            className="flex items-center gap-4 mb-5 md:mb-8"
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.7, delay: 0.2 }}
@@ -131,6 +131,7 @@ export default function Hero() {
             </div>
           </motion.div>
         </motion.div>
+
 
         {/* Scroll indicator */}
         <motion.div
