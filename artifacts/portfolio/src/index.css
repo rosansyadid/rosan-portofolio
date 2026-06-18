@@ -167,6 +167,14 @@
   background: linear-gradient(to right, hsl(var(--primary)), hsl(var(--secondary)), transparent);
 }
 
+/* Card back face — dense diamond crosshatch */
+.card-back-pattern {
+  background-image:
+    repeating-linear-gradient(45deg, hsl(var(--primary) / 0.12) 0px, hsl(var(--primary) / 0.12) 1px, transparent 1px, transparent 10px),
+    repeating-linear-gradient(-45deg, hsl(var(--primary) / 0.12) 0px, hsl(var(--primary) / 0.12) 1px, transparent 1px, transparent 10px);
+  background-color: hsl(var(--card));
+}
+
 /* Card back diamond crosshatch pattern */
 .speed-lines {
   background-image:

@@ -43,8 +43,39 @@ function CardCorner({ value, suit, red }: { value: string; suit: string; red: bo
   );
 }
 
+function CardBack({ suit, value, red, rotateDir = 180 }: { suit: string; value: string; red: boolean; rotateDir?: number }) {
+  return (
+    <div
+      className="absolute inset-0 jojo-panel flex items-center justify-center overflow-hidden"
+      style={{
+        backfaceVisibility: "hidden",
+        WebkitBackfaceVisibility: "hidden",
+        transform: `rotateY(${rotateDir}deg)`,
+      }}
+    >
+      <div className="absolute inset-0 card-back-pattern" />
+      <div
+        className="relative z-10 font-serif select-none"
+        style={{ fontSize: "clamp(4rem, 10vw, 7rem)", color: "hsl(var(--primary) / 0.18)" }}
+      >
+        {suit}
+      </div>
+      <div className="absolute inset-3 border border-primary/15 rounded-sm pointer-events-none" />
+      <div className="absolute top-3 left-4 z-10">
+        <CardCorner value={value} suit={suit} red={red} />
+      </div>
+      <div className="absolute bottom-3 right-4 z-10 rotate-180">
+        <CardCorner value={value} suit={suit} red={red} />
+      </div>
+    </div>
+  );
+}
+
 function ProjectCard({ project, index }: { project: typeof projects[0]; index: number }) {
   const [tilt, setTilt] = useState({ x: 0, y: 0 });
+  const ref = useRef<HTMLDivElement>(null);
+  const isInView = useInView(ref, { once: true, margin: "-60px" });
+
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     const rect = e.currentTarget.getBoundingClientRect();
     const x = ((e.clientY - rect.top) / rect.height - 0.5) * 10;
@@ -52,66 +83,85 @@ function ProjectCard({ project, index }: { project: typeof projects[0]; index: n
     setTilt({ x, y });
   };
   const handleMouseLeave = () => setTilt({ x: 0, y: 0 });
-  const ref = useRef<HTMLDivElement>(null);
-  const isInView = useInView(ref, { once: true, margin: "-80px" });
 
   return (
-    <motion.div
-      ref={ref}
-      initial={{ opacity: 0, y: 30 }}
-      animate={isInView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.5, delay: index * 0.1 }}
-      style={{ transform: `perspective(800px) rotateX(${tilt.x}deg) rotateY(${tilt.y}deg)`, transition: "transform 0.12s ease" }}
-      onMouseMove={handleMouseMove}
-      onMouseLeave={handleMouseLeave}
-      className="group relative jojo-panel p-8 flex flex-col h-full overflow-hidden"
-    >
-      {/* Shine sweep */}
-      <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
-        <div className="absolute top-0 bottom-0 w-[40%] bg-gradient-to-r from-transparent via-white/6 to-transparent -left-[40%] group-hover:left-[140%] transition-all duration-700 ease-in-out" />
-      </div>
+    <div ref={ref} style={{ perspective: "1200px" }} className="h-full">
+      <motion.div
+        className="relative h-full"
+        style={{ transformStyle: "preserve-3d" }}
+        initial={{ rotateY: 180 }}
+        animate={isInView ? { rotateY: 0 } : { rotateY: 180 }}
+        transition={{ duration: 0.9, delay: 0.1 + index * 0.18, ease: [0.16, 1, 0.3, 1] }}
+      >
+        {/* BACK face — card back pattern */}
+        <CardBack suit={project.suit} value={project.value} red={project.red} rotateDir={180} />
 
-      {/* Card corner — top left */}
-      <div className="absolute top-3 left-4 z-10">
-        <CardCorner value={project.value} suit={project.suit} red={project.red} />
-      </div>
-      {/* Card corner — bottom right (rotated) */}
-      <div className="absolute bottom-3 right-4 z-10 rotate-180">
-        <CardCorner value={project.value} suit={project.suit} red={project.red} />
-      </div>
-
-      <div className="flex justify-end items-start mb-4 relative z-10 pt-7">
-        <a
-          href={project.github}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="text-muted-foreground hover:text-primary transition-colors hover:drop-shadow-[0_0_8px_hsl(var(--primary)/0.8)]"
+        {/* FRONT face */}
+        <div
+          className="h-full"
+          style={{ backfaceVisibility: "hidden", WebkitBackfaceVisibility: "hidden" }}
         >
-          <FaGithub size={22} />
-        </a>
-      </div>
+          <div
+            onMouseMove={handleMouseMove}
+            onMouseLeave={handleMouseLeave}
+            style={{
+              transform: `perspective(800px) rotateX(${tilt.x}deg) rotateY(${tilt.y}deg)`,
+              transition: "transform 0.12s ease",
+              height: "100%",
+            }}
+          >
+            <div className="group relative jojo-panel p-8 flex flex-col h-full overflow-hidden">
+              {/* Shine sweep */}
+              <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
+                <div className="absolute top-0 bottom-0 w-[40%] bg-gradient-to-r from-transparent via-white/6 to-transparent -left-[40%] group-hover:left-[140%] transition-all duration-700 ease-in-out" />
+              </div>
 
-      <h3 className="text-2xl font-['Anton'] tracking-wide mb-3 text-foreground relative z-10 group-hover:text-primary transition-colors duration-300">
-        {project.title}
-      </h3>
-      <p className="text-muted-foreground font-['DM_Sans'] mb-8 flex-grow leading-relaxed relative z-10 text-sm">
-        {project.description}
-      </p>
+              {/* Card corners */}
+              <div className="absolute top-3 left-4 z-10">
+                <CardCorner value={project.value} suit={project.suit} red={project.red} />
+              </div>
+              <div className="absolute bottom-3 right-4 z-10 rotate-180">
+                <CardCorner value={project.value} suit={project.suit} red={project.red} />
+              </div>
 
-      <div className="flex flex-wrap gap-2 mt-auto relative z-10">
-        {project.tech.map(tech => (
-          <span key={tech} className="px-3 py-1 bg-primary/10 text-primary border border-primary/25 text-xs font-medium">
-            {tech}
-          </span>
-        ))}
-      </div>
-    </motion.div>
+              <div className="flex justify-end items-start mb-4 relative z-10 pt-7">
+                <a
+                  href={project.github}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-muted-foreground hover:text-primary transition-colors hover:drop-shadow-[0_0_8px_hsl(var(--primary)/0.8)]"
+                >
+                  <FaGithub size={22} />
+                </a>
+              </div>
+
+              <h3 className="text-2xl font-['Anton'] tracking-wide mb-3 text-foreground relative z-10 group-hover:text-primary transition-colors duration-300">
+                {project.title}
+              </h3>
+              <p className="text-muted-foreground font-['DM_Sans'] mb-8 flex-grow leading-relaxed relative z-10 text-sm">
+                {project.description}
+              </p>
+
+              <div className="flex flex-wrap gap-2 mt-auto relative z-10">
+                {project.tech.map((tech) => (
+                  <span key={tech} className="px-3 py-1 bg-primary/10 text-primary border border-primary/25 text-xs font-medium">
+                    {tech}
+                  </span>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </motion.div>
+    </div>
   );
 }
 
 export default function Projects() {
   const ref = useRef<HTMLElement>(null);
   const isInView = useInView(ref, { once: true, margin: "-80px" });
+  const featuredRef = useRef<HTMLDivElement>(null);
+  const featuredInView = useInView(featuredRef, { once: true, margin: "-60px" });
   const [featured, ...rest] = projects;
 
   return (
@@ -119,7 +169,12 @@ export default function Projects() {
       <div className="deco-number">03</div>
 
       <div className="container mx-auto px-6 md:px-12 lg:px-20 max-w-7xl">
-        <motion.div className="flex items-center gap-4 mb-6" initial={{ opacity: 0 }} animate={isInView ? { opacity: 1 } : {}} transition={{ duration: 0.6 }}>
+        <motion.div
+          className="flex items-center gap-4 mb-6"
+          initial={{ opacity: 0 }}
+          animate={isInView ? { opacity: 1 } : {}}
+          transition={{ duration: 0.6 }}
+        >
           <div className="w-6 h-[1px] bg-primary" />
           <span className="section-label">♦ Projects — III</span>
         </motion.div>
@@ -135,56 +190,94 @@ export default function Projects() {
           </motion.h2>
         </div>
 
-        {/* FEATURED — Ace of Spades */}
-        <motion.div
-          className="jojo-panel p-8 md:p-12 mb-8 group relative overflow-hidden"
-          initial={{ opacity: 0, y: 40 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.7, delay: 0.2 }}
-        >
-          <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
-            <div className="absolute top-0 bottom-0 w-[30%] bg-gradient-to-r from-transparent via-white/4 to-transparent -left-[30%] group-hover:left-[130%] transition-all duration-1000 ease-in-out" />
-          </div>
-
-          {/* Ace of Spades corner indices */}
-          <div className="absolute top-4 left-5 z-10">
-            <CardCorner value="A" suit="♠" red={false} />
-          </div>
-          <div className="absolute bottom-4 right-5 z-10 rotate-180">
-            <CardCorner value="A" suit="♠" red={false} />
-          </div>
-
-          <div className="relative z-10 grid md:grid-cols-2 gap-8 md:gap-16 items-end pt-8">
-            <div>
-              <div className="section-label mb-4">♠ Ace — Featured</div>
-              <h3 className="font-['Anton'] text-4xl md:text-5xl text-foreground mb-5 tracking-wide group-hover:text-primary transition-colors duration-300">
-                {featured.title}
-              </h3>
-              <p className="text-muted-foreground leading-relaxed text-lg mb-6">
-                {featured.description}
-              </p>
-              <div className="flex flex-wrap gap-2">
-                {featured.tech.map(t => (
-                  <span key={t} className="px-3 py-1 bg-primary/10 text-primary border border-primary/25 text-xs font-medium">{t}</span>
-                ))}
+        {/* FEATURED — Ace of Spades, flips from the left */}
+        <div ref={featuredRef} style={{ perspective: "1600px" }} className="mb-8">
+          <motion.div
+            className="relative"
+            style={{ transformStyle: "preserve-3d" }}
+            initial={{ rotateY: -180 }}
+            animate={featuredInView ? { rotateY: 0 } : { rotateY: -180 }}
+            transition={{ duration: 1.1, ease: [0.16, 1, 0.3, 1] }}
+          >
+            {/* Featured BACK face */}
+            <div
+              className="absolute inset-0 jojo-panel flex items-center justify-center overflow-hidden"
+              style={{
+                backfaceVisibility: "hidden",
+                WebkitBackfaceVisibility: "hidden",
+                transform: "rotateY(-180deg)",
+              }}
+            >
+              <div className="absolute inset-0 card-back-pattern" />
+              <div
+                className="relative z-10 font-serif select-none"
+                style={{ fontSize: "clamp(8rem, 18vw, 14rem)", color: "hsl(var(--primary) / 0.12)" }}
+              >
+                ♠
+              </div>
+              <div className="absolute inset-4 border border-primary/12" />
+              <div className="absolute top-4 left-5 z-10">
+                <CardCorner value="A" suit="♠" red={false} />
+              </div>
+              <div className="absolute bottom-4 right-5 z-10 rotate-180">
+                <CardCorner value="A" suit="♠" red={false} />
               </div>
             </div>
-            <div className="flex md:justify-end items-end">
-              <a
-                href={featured.github}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-3 px-6 py-3 border border-border hover:border-primary/60 text-foreground hover:text-primary rounded-sm transition-all hover:shadow-[0_0_16px_hsl(var(--primary)/0.3)] group/btn font-['DM_Sans'] font-semibold text-sm"
-              >
-                <FaGithub size={18} />
-                View on GitHub
-                <ArrowUpRight size={14} className="group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5 transition-transform" />
-              </a>
-            </div>
-          </div>
-        </motion.div>
 
-        {/* Remaining projects */}
+            {/* Featured FRONT face */}
+            <div
+              className="jojo-panel p-8 md:p-12 group relative overflow-hidden"
+              style={{ backfaceVisibility: "hidden", WebkitBackfaceVisibility: "hidden" }}
+            >
+              <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
+                <div className="absolute top-0 bottom-0 w-[30%] bg-gradient-to-r from-transparent via-white/4 to-transparent -left-[30%] group-hover:left-[130%] transition-all duration-1000 ease-in-out" />
+              </div>
+
+              <div className="absolute top-4 left-5 z-10">
+                <CardCorner value="A" suit="♠" red={false} />
+              </div>
+              <div className="absolute bottom-4 right-5 z-10 rotate-180">
+                <CardCorner value="A" suit="♠" red={false} />
+              </div>
+
+              <div className="relative z-10 grid md:grid-cols-2 gap-8 md:gap-16 items-end pt-8">
+                <div>
+                  <div className="section-label mb-4">♠ Ace — Featured</div>
+                  <h3 className="font-['Anton'] text-4xl md:text-5xl text-foreground mb-5 tracking-wide group-hover:text-primary transition-colors duration-300">
+                    {featured.title}
+                  </h3>
+                  <p className="text-muted-foreground leading-relaxed text-lg mb-6">
+                    {featured.description}
+                  </p>
+                  <div className="flex flex-wrap gap-2">
+                    {featured.tech.map((t) => (
+                      <span key={t} className="px-3 py-1 bg-primary/10 text-primary border border-primary/25 text-xs font-medium">
+                        {t}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+                <div className="flex md:justify-end items-end">
+                  <a
+                    href={featured.github}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-3 px-6 py-3 border border-border hover:border-primary/60 text-foreground hover:text-primary rounded-sm transition-all hover:shadow-[0_0_16px_hsl(var(--primary)/0.3)] group/btn font-['DM_Sans'] font-semibold text-sm"
+                  >
+                    <FaGithub size={18} />
+                    View on GitHub
+                    <ArrowUpRight
+                      size={14}
+                      className="group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5 transition-transform"
+                    />
+                  </a>
+                </div>
+              </div>
+            </div>
+          </motion.div>
+        </div>
+
+        {/* Remaining projects — flip in staggered */}
         <div className="grid md:grid-cols-3 gap-6">
           {rest.map((project, index) => (
             <ProjectCard key={project.title} project={project} index={index} />
