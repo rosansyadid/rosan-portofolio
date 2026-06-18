@@ -1,4 +1,5 @@
-import { motion } from "framer-motion";
+import { motion, useInView } from "framer-motion";
+import { useRef } from "react";
 import { SiHtml5, SiCss, SiTailwindcss, SiJavascript, SiFlutter, SiLaravel, SiMysql, SiPhp, SiReact } from "react-icons/si";
 
 const skills = [
@@ -14,53 +15,59 @@ const skills = [
 ];
 
 export default function Skills() {
-  return (
-    <section id="skills" className="py-24 bg-card/30">
-      <div className="container mx-auto px-6 max-w-5xl">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-        >
-          {/* Section Header */}
-          <div className="mb-16">
-            <h2 className="text-4xl md:text-5xl manga-title text-foreground mb-4">Skills & Proficiency</h2>
-          </div>
+  const ref = useRef<HTMLElement>(null);
+  const isInView = useInView(ref, { once: true, margin: "-100px" });
 
-          <div className="grid md:grid-cols-2 gap-x-12 gap-y-8">
-            {skills.map((skill, index) => (
-              <motion.div 
-                key={skill.name}
-                initial={{ opacity: 0, x: -20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="jojo-panel p-5"
-              >
-                <div className="flex justify-between items-center mb-4">
-                  <div className="flex items-center gap-3">
-                    <skill.icon size={24} style={{ color: skill.color }} />
-                    <span className="font-['DM_Sans'] font-bold text-lg text-foreground">{skill.name}</span>
-                  </div>
-                  <span className="font-['Share_Tech_Mono'] text-primary font-bold text-right">{skill.percentage}%</span>
-                </div>
-                {/* Progress bar */}
-                <div className="h-2.5 w-full bg-muted border border-border/50 rounded-full overflow-hidden">
-                  <motion.div
-                    initial={{ width: 0 }}
-                    whileInView={{ width: `${skill.percentage}%` }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 1, delay: 0.2 + (index * 0.1), ease: "easeOut" }}
-                    className="h-full bg-gradient-to-r from-primary to-secondary rounded-full relative"
-                  >
-                    <div className="absolute right-0 top-1/2 -translate-y-1/2 w-3 h-3 bg-white rounded-full shadow-[0_0_8px_hsl(var(--primary))]" />
-                  </motion.div>
-                </div>
-              </motion.div>
-            ))}
-          </div>
+  return (
+    <section ref={ref} id="skills" className="py-32 md:py-48 relative overflow-hidden bg-card/20">
+      <div className="deco-number">02</div>
+
+      <div className="container mx-auto px-6 md:px-12 lg:px-20 max-w-7xl">
+        <motion.div className="flex items-center gap-4 mb-6" initial={{ opacity: 0 }} animate={isInView ? { opacity: 1 } : {}} transition={{ duration: 0.6 }}>
+          <div className="w-6 h-[1px] bg-primary" />
+          <span className="section-label">Skills — 02</span>
         </motion.div>
+
+        <div className="overflow-hidden mb-16">
+          <motion.h2
+            className="font-['Anton'] text-5xl md:text-7xl uppercase tracking-wide"
+            initial={{ y: "100%" }}
+            animate={isInView ? { y: 0 } : {}}
+            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+          >
+            Proficiency
+          </motion.h2>
+        </div>
+
+        <div className="grid md:grid-cols-2 gap-x-16 gap-y-6">
+          {skills.map((skill, index) => (
+            <motion.div
+              key={skill.name}
+              initial={{ opacity: 0, x: -20 }}
+              animate={isInView ? { opacity: 1, x: 0 } : {}}
+              transition={{ duration: 0.5, delay: 0.1 + index * 0.07 }}
+              className="group"
+            >
+              <div className="flex justify-between items-center mb-2">
+                <div className="flex items-center gap-3">
+                  <skill.icon size={20} style={{ color: skill.color }} className="opacity-80 group-hover:opacity-100 transition-opacity" />
+                  <span className="font-['DM_Sans'] font-semibold text-foreground">{skill.name}</span>
+                </div>
+                <span className="font-['Share_Tech_Mono'] text-primary text-sm">{skill.percentage}%</span>
+              </div>
+              <div className="h-[3px] w-full bg-border/40 rounded-full overflow-visible relative">
+                <motion.div
+                  initial={{ width: 0 }}
+                  animate={isInView ? { width: `${skill.percentage}%` } : {}}
+                  transition={{ duration: 1.2, delay: 0.2 + index * 0.07, ease: "easeOut" }}
+                  className="h-full bg-gradient-to-r from-primary to-secondary rounded-full relative"
+                >
+                  <div className="absolute right-0 top-1/2 -translate-y-1/2 w-2.5 h-2.5 bg-primary rounded-full shadow-[0_0_10px_hsl(var(--primary)/0.8)] ring-2 ring-background" />
+                </motion.div>
+              </div>
+            </motion.div>
+          ))}
+        </div>
       </div>
     </section>
   );

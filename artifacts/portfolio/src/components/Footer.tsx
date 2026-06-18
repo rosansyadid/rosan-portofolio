@@ -1,12 +1,18 @@
+import MarqueeStrip from "./MarqueeStrip";
+
 export default function Footer() {
   return (
-    <footer className="py-10 text-center border-t border-border bg-card/60 backdrop-blur">
-      <p className="text-muted-foreground font-['DM_Sans'] text-sm">
-        <span className="text-primary mr-1">⚡</span> Made with ❤️ by Rosansyadid © 2026
-      </p>
-      <p className="font-['Share_Tech_Mono'] text-primary/20 text-xs mt-1">
-        ♦ STAND: STAR PLATINUM ♦
-      </p>
+    <footer className="border-t border-border bg-card/30">
+      <MarqueeStrip
+        items={["Flutter", "Laravel", "React", "Web Developer", "Mobile Developer", "Stand User", "Rosansyadid"]}
+        className="border-t-0 border-b border-border/30"
+        speed={30}
+      />
+      <div className="container mx-auto px-6 md:px-12 py-8 flex flex-col md:flex-row items-center justify-between gap-4">
+        <span className="font-['Anton'] text-lg text-foreground tracking-wide">♦ R/S</span>
+        <p className="text-muted-foreground text-sm font-['DM_Sans']">Made with ❤️ by Rosansyadid © 2026</p>
+        <p className="font-['Share_Tech_Mono'] text-[10px] text-primary/15 tracking-widest">♦ STAND: STAR PLATINUM ♦</p>
+      </div>
     </footer>
   );
 }

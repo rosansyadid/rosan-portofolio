@@ -1,6 +1,7 @@
-import { motion } from "framer-motion";
-import { useState } from "react";
+import { motion, useInView } from "framer-motion";
+import { useState, useRef } from "react";
 import { FaGithub } from "react-icons/fa";
+import { ArrowUpRight } from "lucide-react";
 
 const projects = [
   {
@@ -40,12 +41,14 @@ function ProjectCard({ project, index }: { project: typeof projects[0], index: n
   };
   
   const handleMouseLeave = () => setTilt({ x: 0, y: 0 });
+  const ref = useRef<HTMLDivElement>(null);
+  const isInView = useInView(ref, { once: true, margin: "-80px" });
 
   return (
     <motion.div
+      ref={ref}
       initial={{ opacity: 0, y: 30 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
+      animate={isInView ? { opacity: 1, y: 0 } : {}}
       transition={{ duration: 0.5, delay: index * 0.1 }}
       style={{ transform: `perspective(800px) rotateX(${tilt.x}deg) rotateY(${tilt.y}deg)`, transition: 'transform 0.1s ease' }}
       onMouseMove={handleMouseMove}
@@ -59,7 +62,7 @@ function ProjectCard({ project, index }: { project: typeof projects[0], index: n
 
       {/* Project Number Badge */}
       <div className="absolute top-6 right-6 font-['Share_Tech_Mono'] text-primary/40 text-xs font-bold">
-        {(index + 1).toString().padStart(2, '0')}
+        {(index + 2).toString().padStart(2, '0')}
       </div>
 
       <div className="flex justify-between items-start mb-6 relative z-10">
@@ -96,25 +99,80 @@ function ProjectCard({ project, index }: { project: typeof projects[0], index: n
 }
 
 export default function Projects() {
+  const ref = useRef<HTMLElement>(null);
+  const isInView = useInView(ref, { once: true, margin: "-80px" });
+
+  const [featured, ...rest] = projects;
+
   return (
-    <section id="projects" className="py-24">
-      <div className="container mx-auto px-6 max-w-6xl">
+    <section ref={ref} id="projects" className="py-32 md:py-48 relative overflow-hidden">
+      <div className="deco-number">03</div>
+
+      <div className="container mx-auto px-6 md:px-12 lg:px-20 max-w-7xl">
+        <motion.div className="flex items-center gap-4 mb-6" initial={{ opacity: 0 }} animate={isInView ? { opacity: 1 } : {}} transition={{ duration: 0.6 }}>
+          <div className="w-6 h-[1px] bg-primary" />
+          <span className="section-label">Projects — 03</span>
+        </motion.div>
+
+        <div className="overflow-hidden mb-16">
+          <motion.h2
+            className="font-['Anton'] text-5xl md:text-7xl uppercase tracking-wide"
+            initial={{ y: "100%" }}
+            animate={isInView ? { y: 0 } : {}}
+            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+          >
+            Featured Work
+          </motion.h2>
+        </div>
+
+        {/* FEATURED project — full width, large */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
+          className="jojo-panel p-8 md:p-12 mb-8 group relative overflow-hidden"
+          initial={{ opacity: 0, y: 40 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.7, delay: 0.2 }}
         >
-          <div className="mb-16">
-            <h2 className="text-4xl md:text-5xl manga-title text-foreground mb-4">Featured Projects</h2>
+          {/* Shine sweep */}
+          <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
+            <div className="absolute top-0 bottom-0 w-[30%] bg-gradient-to-r from-transparent via-white/5 to-transparent -left-[30%] group-hover:left-[130%] transition-all duration-1000 ease-in-out" />
           </div>
 
-          <div className="grid md:grid-cols-2 gap-10">
-            {projects.map((project, index) => (
-              <ProjectCard key={project.title} project={project} index={index} />
-            ))}
+          <div className="relative z-10 grid md:grid-cols-2 gap-8 md:gap-16 items-end">
+            <div>
+              <div className="section-label mb-4">♦ Featured — 01</div>
+              <h3 className="font-['Anton'] text-4xl md:text-5xl text-foreground mb-5 tracking-wide group-hover:text-primary transition-colors duration-300">
+                {featured.title}
+              </h3>
+              <p className="text-muted-foreground leading-relaxed text-lg mb-6">
+                {featured.description}
+              </p>
+              <div className="flex flex-wrap gap-2">
+                {featured.tech.map(t => (
+                  <span key={t} className="px-3 py-1 bg-primary/10 text-primary border border-primary/20 text-xs font-medium rounded-full">{t}</span>
+                ))}
+              </div>
+            </div>
+            <div className="flex md:justify-end items-end">
+              <a
+                href={featured.github}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-3 px-6 py-3 border border-border hover:border-primary/60 text-foreground hover:text-primary rounded transition-all hover:shadow-[0_0_16px_hsl(var(--primary)/0.3)] group/btn font-['DM_Sans'] font-semibold text-sm"
+              >
+                <FaGithub size={18} />
+                View on GitHub
+                <ArrowUpRight size={14} className="group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5 transition-transform" />
+              </a>
+            </div>
           </div>
         </motion.div>
+
+        {/* Remaining projects — 3 column grid */}
+        <div className="grid md:grid-cols-3 gap-6">
+          {rest.map((project, index) => (
+            <ProjectCard key={project.title} project={project} index={index} />
+          ))}
+        </div>
       </div>
     </section>
   );

@@ -50,8 +50,8 @@ export default function Navbar() {
         isScrolled ? "bg-background/90 backdrop-blur-md border-b border-border py-4" : "bg-transparent py-6"
       }`}
     >
-      <div className="container mx-auto px-6 flex items-center justify-between">
-        <a href="#home" className="font-['Anton'] text-2xl tracking-wider text-foreground hover:text-primary hover:drop-shadow-[0_0_8px_hsl(var(--primary))] transition-all">
+      <div className="container mx-auto px-6 md:px-12 lg:px-20 flex items-center justify-between">
+        <a href="#home" className="font-['Anton'] text-xl tracking-wider text-foreground hover:text-primary transition-colors">
           ♦ R/S
         </a>
 
@@ -61,23 +61,22 @@ export default function Navbar() {
             <a
               key={link.name}
               href={link.href}
-              className={`relative text-lg font-['DM_Sans'] font-semibold transition-colors group ${
-                activeSection === link.href.substring(1) ? "text-primary" : "text-muted-foreground hover:text-primary"
+              className={`relative font-['DM_Sans'] font-medium text-sm transition-colors ${
+                activeSection === link.href.substring(1) ? "text-foreground" : "text-muted-foreground hover:text-foreground"
               }`}
             >
               {link.name}
-              <span className="absolute left-0 bottom-[-4px] w-full h-[2px] bg-primary transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left" />
               {activeSection === link.href.substring(1) && (
-                <span className="absolute left-1/2 bottom-[-8px] w-1.5 h-1.5 bg-primary rounded-full -translate-x-1/2 shadow-[0_0_8px_hsl(var(--primary))]" />
+                <span className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-1 h-1 bg-primary rounded-full" />
               )}
             </a>
           ))}
           <button
             onClick={toggleTheme}
-            className="p-2 rounded-full border border-border bg-card text-foreground transition-all hover:bg-muted hover:ring-2 ring-primary/50 hover:shadow-[0_0_15px_hsl(var(--primary)/0.5)]"
+            className="text-muted-foreground hover:text-foreground transition-colors"
             data-testid="button-theme-toggle"
           >
-            {isDark ? <Sun size={20} /> : <Moon size={20} />}
+            {isDark ? <Sun size={18} /> : <Moon size={18} />}
           </button>
         </nav>
 
@@ -85,13 +84,13 @@ export default function Navbar() {
         <div className="flex md:hidden items-center gap-4">
           <button
             onClick={toggleTheme}
-            className="p-2 rounded-full border border-border bg-card text-foreground transition-all hover:bg-muted hover:ring-2 ring-primary/50 hover:shadow-[0_0_15px_hsl(var(--primary)/0.5)]"
+            className="text-muted-foreground hover:text-foreground transition-colors"
           >
-            {isDark ? <Sun size={20} /> : <Moon size={20} />}
+            {isDark ? <Sun size={18} /> : <Moon size={18} />}
           </button>
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="text-foreground p-2"
+            className="text-muted-foreground hover:text-foreground transition-colors"
           >
             {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
@@ -112,8 +111,8 @@ export default function Navbar() {
                 key={link.name}
                 href={link.href}
                 onClick={() => setIsMobileMenuOpen(false)}
-                className={`text-lg font-['DM_Sans'] font-semibold transition-colors hover:text-primary ${
-                  activeSection === link.href.substring(1) ? "text-primary" : "text-muted-foreground"
+                className={`font-['DM_Sans'] font-medium text-sm transition-colors ${
+                  activeSection === link.href.substring(1) ? "text-foreground" : "text-muted-foreground hover:text-foreground"
                 }`}
               >
                 {link.name}

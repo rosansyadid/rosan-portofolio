@@ -1,7 +1,8 @@
-import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { useState, useEffect, useRef } from "react";
+import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
 import { ChevronDown } from "lucide-react";
 import RoadRollerAnimation from "./RoadRollerAnimation";
+import MarqueeStrip from "./MarqueeStrip";
 
 const titles = [
   "Web Developer",
@@ -15,6 +16,11 @@ export default function Hero() {
   const [displayText, setDisplayText] = useState("");
   const [isDeleting, setIsDeleting] = useState(false);
   const [showRoller, setShowRoller] = useState(false);
+  const containerRef = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({ target: containerRef, offset: ["start start", "end start"] });
+  const bgY = useTransform(scrollYProgress, [0, 1], ["0%", "30%"]);
+  const textY = useTransform(scrollYProgress, [0, 1], ["0%", "15%"]);
+  const opacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
 
   useEffect(() => {
     const currentTitle = titles[titleIndex];
@@ -45,80 +51,124 @@ export default function Hero() {
         {showRoller && <RoadRollerAnimation onClose={() => setShowRoller(false)} />}
       </AnimatePresence>
 
-      <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
-        {/* Halftone dot background */}
-        <div className="absolute inset-0 halftone-bg opacity-40 pointer-events-none z-0" />
+      <section ref={containerRef} id="home" className="relative min-h-screen flex flex-col justify-center overflow-hidden">
+        {/* Parallax background layer */}
+        <motion.div className="absolute inset-0 z-0 pointer-events-none" style={{ y: bgY }}>
+          <div className="absolute inset-0 halftone-bg opacity-30" />
+          <div className="absolute inset-0 speed-lines opacity-15" />
+          <div className="absolute top-0 left-1/4 w-[60vw] h-[60vw] rounded-full bg-primary/8 blur-[160px]" />
+          <div className="absolute bottom-0 right-1/4 w-[40vw] h-[40vw] rounded-full bg-secondary/8 blur-[120px]" />
+        </motion.div>
 
-        {/* Gold aura orbs */}
-        <div className="absolute inset-0 overflow-hidden pointer-events-none z-0">
-          <div className="absolute top-1/4 left-1/4 w-[45vw] h-[45vw] rounded-full bg-primary/15 blur-[140px]" />
-          <div className="absolute bottom-1/3 right-1/4 w-[35vw] h-[35vw] rounded-full bg-secondary/12 blur-[120px]" />
-        </div>
+        <motion.div className="relative z-10 flex flex-col justify-center min-h-screen px-6 md:px-12 lg:px-20 pt-24 pb-12" style={{ y: textY, opacity }}>
 
-        {/* Speed lines */}
-        <div className="absolute inset-0 speed-lines opacity-20 pointer-events-none z-0" />
-
-        <div className="container mx-auto px-6 relative z-10 text-center">
+          {/* Label row */}
           <motion.div
+            className="flex items-center gap-4 mb-8 md:mb-12"
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.7, delay: 0.2 }}
+          >
+            <div className="w-8 h-[1px] bg-primary" />
+            <span className="section-label">Stand User Portfolio ✦ 2026</span>
+          </motion.div>
+
+          {/* MASSIVE name — full width */}
+          <div className="overflow-hidden mb-4">
+            <motion.h1
+              className="font-['Anton'] uppercase leading-[0.9] text-foreground"
+              style={{ fontSize: "clamp(3.5rem, 9vw, 9rem)", letterSpacing: "-0.01em" }}
+              initial={{ y: "100%", opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1], delay: 0.3 }}
+            >
+              Muli'at Harosan
+            </motion.h1>
+          </div>
+          <div className="overflow-hidden mb-8 md:mb-12">
+            <motion.h1
+              className="font-['Anton'] uppercase leading-[0.9]"
+              style={{ fontSize: "clamp(3.5rem, 9vw, 9rem)", letterSpacing: "-0.01em" }}
+              initial={{ y: "100%", opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1], delay: 0.45 }}
+            >
+              <span className="gold-text">Syadida.</span>
+            </motion.h1>
+          </div>
+
+          {/* Bottom row: typewriter left, bio + CTAs right */}
+          <motion.div
+            className="grid md:grid-cols-2 gap-8 md:gap-16 items-end"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
+            transition={{ duration: 0.8, delay: 0.7 }}
           >
-            <p className="font-['Share_Tech_Mono'] text-sm text-primary mb-4 tracking-[0.4em] uppercase">
-              ✦ Stand User Portfolio ✦
-            </p>
-            <h1 className="font-['Anton'] text-6xl md:text-8xl lg:text-9xl tracking-wide mb-6 text-foreground drop-shadow-sm">
-              Muli'at Harosan Syadida.
-            </h1>
-            <h2 className="text-3xl md:text-4xl font-bold text-muted-foreground mb-8 h-20 md:h-24">
-              I am a <span className="text-foreground">{displayText}</span>
-              <span className="animate-pulse text-primary">|</span>
-            </h2>
-            <p className="max-w-2xl mx-auto text-lg text-muted-foreground mb-10">
-              Aspiring developer exploring modern technologies. I build clean, responsive, and meaningful digital solutions.
-            </p>
-
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-6">
-              <a
-                href="#projects"
-                data-testid="link-view-work"
-                className="px-8 py-4 bg-primary text-primary-foreground font-bold rounded font-['Anton'] text-xl tracking-wider hover:shadow-[0_0_24px_hsl(var(--primary)/0.6)] hover:scale-[1.04] active:scale-95 transition-all"
-              >
-                VIEW MY WORK
-              </a>
-              <a
-                href="https://drive.google.com/file/d/1W3Cb3EWl1ghaIgem3Upwe_VQQp1B-qYo/view"
-                target="_blank"
-                rel="noopener noreferrer"
-                data-testid="link-resume"
-                className="px-8 py-4 bg-card border-2 border-border text-foreground font-semibold rounded hover:border-primary/60 hover:shadow-[0_0_12px_hsl(var(--primary)/0.3)] hover:scale-[1.04] active:scale-95 transition-all"
-              >
-                Resume / CV
-              </a>
+            <div>
+              <p className="font-['DM_Sans'] text-xl md:text-2xl text-muted-foreground mb-2">
+                I am a <span className="text-foreground font-semibold">{displayText}</span>
+                <span className="animate-pulse text-primary ml-0.5">|</span>
+              </p>
             </div>
-
-            {/* Road Roller Easter Egg Button */}
-            <motion.button
-              onClick={() => setShowRoller(true)}
-              data-testid="button-road-roller"
-              className="font-['Share_Tech_Mono'] text-xs text-primary/50 hover:text-primary border border-primary/20 hover:border-primary/60 px-4 py-2 rounded tracking-[0.3em] uppercase transition-all hover:shadow-[0_0_10px_hsl(var(--primary)/0.3)] hover:bg-primary/5"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.97 }}
-            >
-              [ ROAD ROLLER DA! ]
-            </motion.button>
+            <div className="space-y-6">
+              <p className="text-muted-foreground leading-relaxed">
+                Aspiring developer exploring modern technologies. I build clean, responsive, and meaningful digital solutions.
+              </p>
+              <div className="flex flex-wrap gap-3">
+                <a
+                  href="#projects"
+                  data-testid="link-view-work"
+                  className="inline-flex items-center gap-2 px-7 py-3.5 bg-primary text-primary-foreground font-['Anton'] tracking-widest uppercase text-sm rounded hover:shadow-[0_0_28px_hsl(var(--primary)/0.55)] hover:scale-[1.03] active:scale-95 transition-all"
+                >
+                  View My Work
+                  <span className="text-xs">♦</span>
+                </a>
+                <a
+                  href="https://drive.google.com/file/d/1W3Cb3EWl1ghaIgem3Upwe_VQQp1B-qYo/view"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  data-testid="link-resume"
+                  className="inline-flex items-center px-7 py-3.5 border border-border text-foreground font-semibold rounded hover:border-primary/50 hover:shadow-[0_0_14px_hsl(var(--primary)/0.25)] hover:scale-[1.03] active:scale-95 transition-all text-sm"
+                >
+                  Resume / CV
+                </a>
+                <motion.button
+                  onClick={() => setShowRoller(true)}
+                  data-testid="button-road-roller"
+                  className="inline-flex items-center px-4 py-3.5 font-['Share_Tech_Mono'] text-xs text-primary/50 hover:text-primary border border-primary/15 hover:border-primary/50 rounded tracking-[0.25em] uppercase transition-all hover:bg-primary/5"
+                  whileHover={{ scale: 1.04 }}
+                  whileTap={{ scale: 0.97 }}
+                >
+                  Road Roller Da!
+                </motion.button>
+              </div>
+            </div>
           </motion.div>
-        </div>
+        </motion.div>
 
-        <motion.a
-          href="#about"
-          className="absolute bottom-10 left-1/2 -translate-x-1/2 text-muted-foreground hover:text-primary transition-colors"
-          animate={{ y: [0, 10, 0] }}
-          transition={{ repeat: Infinity, duration: 2 }}
+        {/* Scroll indicator bottom right */}
+        <motion.div
+          className="absolute bottom-10 right-8 md:right-12 flex flex-col items-center gap-2 z-10"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 1.2 }}
         >
-          <ChevronDown size={32} strokeWidth={2.5} />
-        </motion.a>
+          <span className="section-label rotate-90 origin-center mb-4">Scroll</span>
+          <motion.div
+            animate={{ y: [0, 8, 0] }}
+            transition={{ repeat: Infinity, duration: 2 }}
+            className="text-muted-foreground hover:text-primary transition-colors"
+          >
+            <ChevronDown size={20} strokeWidth={2} />
+          </motion.div>
+        </motion.div>
       </section>
+
+      {/* Marquee strip between hero and next section */}
+      <MarqueeStrip
+        items={["Flutter", "Laravel", "React", "HTML5", "CSS3", "JavaScript", "MySQL", "PHP", "Tailwind", "Firebase", "Stand User", "Web Developer"]}
+        className="bg-card/40"
+      />
     </>
   );
 }

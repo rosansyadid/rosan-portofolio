@@ -225,3 +225,68 @@
 }
 
 html { scroll-behavior: smooth; }
+
+/* Text reveal mask animation */
+.reveal-parent {
+  overflow: hidden;
+}
+.reveal-child {
+  transform: translateY(100%);
+  display: inline-block;
+}
+
+/* Premium horizontal rule */
+.gold-rule {
+  height: 1px;
+  background: linear-gradient(to right, transparent, hsl(var(--primary) / 0.6), transparent);
+}
+
+/* Section label */
+.section-label {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: hsl(var(--primary) / 0.7);
+}
+
+/* Marquee */
+@keyframes marquee-scroll {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+.marquee-track {
+  animation: marquee-scroll 20s linear infinite;
+  display: flex;
+  width: max-content;
+}
+.marquee-track:hover {
+  animation-play-state: paused;
+}
+
+/* Large decorative number */
+.deco-number {
+  font-family: 'Anton', sans-serif;
+  font-size: clamp(6rem, 12vw, 10rem);
+  line-height: 1;
+  color: hsl(var(--primary) / 0.06);
+  user-select: none;
+  pointer-events: none;
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  letter-spacing: -0.02em;
+}
+
+/* Stagger container */
+.stagger-container > * {
+  opacity: 0;
+  transform: translateY(24px);
+}
+
+/* Full-bleed section */
+.full-bleed {
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+}
