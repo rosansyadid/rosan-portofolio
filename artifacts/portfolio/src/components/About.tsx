@@ -96,9 +96,9 @@ export default function About() {
             {/* Fun fact card */}
             <div className="jojo-panel p-8 relative group">
               <div className="absolute top-3 right-3 section-label text-[10px] opacity-40 group-hover:opacity-80 transition-opacity">
-                ♦ MENACING ♦
+                ♠ WILD CARD ♣
               </div>
-              <div className="section-label mb-3">♦ Stand Ability</div>
+              <div className="section-label mb-3">♥ Card Ability</div>
               <h3 className="font-['Anton'] text-3xl text-foreground mb-4 tracking-wide">Fun Fact</h3>
               <p className="text-foreground/80 leading-relaxed">
                 "Once spent hours stuck on a coding error before realizing the solution was literally deleting a few files. Debugging truly builds character."

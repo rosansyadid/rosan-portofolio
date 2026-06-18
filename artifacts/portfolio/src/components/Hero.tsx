@@ -70,7 +70,7 @@ export default function Hero() {
             transition={{ duration: 0.7, delay: 0.2 }}
           >
             <div className="w-8 h-[1px] bg-primary" />
-            <span className="section-label">Stand User Portfolio ✦ 2026</span>
+            <span className="section-label">♠ Portfolio — Ace High ♥ 2026</span>
           </motion.div>
 
           {/* MASSIVE name — full width */}
@@ -166,7 +166,7 @@ export default function Hero() {
 
       {/* Marquee strip between hero and next section */}
       <MarqueeStrip
-        items={["Flutter", "Laravel", "React", "HTML5", "CSS3", "JavaScript", "MySQL", "PHP", "Tailwind", "Firebase", "Stand User", "Web Developer"]}
+        items={["Flutter", "Laravel", "React", "HTML5", "CSS3", "JavaScript", "MySQL", "PHP", "Tailwind", "Firebase", "Wild Card", "Web Developer"]}
         className="bg-card/40"
       />
     </>

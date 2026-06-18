@@ -56,51 +56,51 @@
   --app-font-mono: 'Share Tech Mono', monospace;
   --radius: 0.5rem;
 
-  --background: 45 30% 93%;
-  --foreground: 270 40% 8%;
-  --border: 45 20% 75%;
-  --card: 45 40% 97%;
-  --card-foreground: 270 40% 8%;
-  --card-border: 45 20% 72%;
-  --popover: 45 40% 97%;
-  --popover-foreground: 270 40% 8%;
-  --popover-border: 45 20% 72%;
-  --primary: 51 100% 50%;        /* Dio gold */
-  --primary-foreground: 270 60% 8%;
-  --secondary: 280 65% 45%;      /* Stand purple */
-  --secondary-foreground: 0 0% 100%;
-  --muted: 45 20% 87%;
-  --muted-foreground: 270 25% 40%;
-  --accent: 348 80% 48%;         /* blood crimson */
+  --background: 43 40% 96%;       /* ivory card face */
+  --foreground: 0 0% 8%;          /* card ink black */
+  --border: 0 0% 82%;
+  --card: 0 0% 100%;              /* pure white card */
+  --card-foreground: 0 0% 8%;
+  --card-border: 0 0% 80%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 0 0% 8%;
+  --popover-border: 0 0% 80%;
+  --primary: 0 79% 42%;           /* deep crimson */
+  --primary-foreground: 0 0% 100%;
+  --secondary: 0 0% 12%;          /* clubs/spades black */
+  --secondary-foreground: 0 0% 98%;
+  --muted: 0 0% 92%;
+  --muted-foreground: 0 0% 44%;
+  --accent: 0 0% 15%;
   --accent-foreground: 0 0% 100%;
-  --destructive: 0 84% 60%;
+  --destructive: 0 84% 55%;
   --destructive-foreground: 0 0% 100%;
-  --input: 45 20% 82%;
-  --ring: 51 100% 50%;
+  --input: 0 0% 88%;
+  --ring: 0 79% 42%;
 }
 
 .dark {
-  --background: 270 55% 4%;       /* near-black deep purple */
-  --foreground: 45 60% 90%;       /* warm gold-cream */
-  --border: 270 30% 16%;
-  --card: 270 50% 7%;
-  --card-foreground: 45 60% 90%;
-  --card-border: 270 30% 18%;
-  --popover: 270 50% 7%;
-  --popover-foreground: 45 60% 90%;
-  --popover-border: 270 30% 18%;
-  --primary: 51 100% 55%;         /* gleaming gold */
-  --primary-foreground: 270 60% 6%;
-  --secondary: 280 70% 60%;       /* menacing purple */
-  --secondary-foreground: 0 0% 100%;
-  --muted: 270 35% 12%;
-  --muted-foreground: 45 30% 55%;
-  --accent: 348 80% 55%;          /* crimson Stand */
+  --background: 0 0% 5%;          /* card back black */
+  --foreground: 40 20% 92%;       /* warm ivory */
+  --border: 0 0% 14%;
+  --card: 0 0% 9%;
+  --card-foreground: 40 20% 92%;
+  --card-border: 0 0% 16%;
+  --popover: 0 0% 9%;
+  --popover-foreground: 40 20% 92%;
+  --popover-border: 0 0% 16%;
+  --primary: 0 84% 52%;           /* bright crimson */
+  --primary-foreground: 0 0% 100%;
+  --secondary: 0 0% 22%;          /* dark charcoal */
+  --secondary-foreground: 0 0% 96%;
+  --muted: 0 0% 13%;
+  --muted-foreground: 0 0% 55%;
+  --accent: 0 0% 20%;
   --accent-foreground: 0 0% 100%;
   --destructive: 0 70% 55%;
   --destructive-foreground: 0 0% 100%;
-  --input: 270 35% 13%;
-  --ring: 51 100% 55%;
+  --input: 0 0% 14%;
+  --ring: 0 84% 52%;
 }
 
 @layer base {
@@ -154,27 +154,25 @@
   background: linear-gradient(to right, hsl(var(--primary)), hsl(var(--secondary)), transparent);
 }
 
-/* Stand speed lines (decorative) */
+/* Card back diamond crosshatch pattern */
 .speed-lines {
-  background-image: repeating-conic-gradient(
-    hsl(var(--primary) / 0.03) 0deg, 
-    transparent 2deg, 
-    transparent 10deg
-  );
+  background-image:
+    repeating-linear-gradient(45deg, hsl(var(--primary) / 0.05) 0px, hsl(var(--primary) / 0.05) 1px, transparent 1px, transparent 14px),
+    repeating-linear-gradient(-45deg, hsl(var(--primary) / 0.05) 0px, hsl(var(--primary) / 0.05) 1px, transparent 1px, transparent 14px);
 }
 
-/* Gold shimmer animation */
-@keyframes gold-shimmer {
+/* Crimson card shimmer animation */
+@keyframes card-shimmer {
   0% { background-position: -200% center; }
   100% { background-position: 200% center; }
 }
 .gold-text {
-  background: linear-gradient(90deg, hsl(51 100% 45%), hsl(51 100% 70%), hsl(45 90% 55%), hsl(51 100% 45%));
+  background: linear-gradient(90deg, hsl(0 84% 35%), hsl(0 84% 62%), hsl(350 80% 58%), hsl(0 84% 35%));
   background-size: 200% auto;
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
-  animation: gold-shimmer 3s linear infinite;
+  animation: card-shimmer 3s linear infinite;
 }
 
 /* Menacing effect — floating ♦ symbols */
