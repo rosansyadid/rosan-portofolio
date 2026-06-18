@@ -1,7 +1,6 @@
 import { useState, useEffect, useRef } from "react";
-import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { ChevronDown } from "lucide-react";
-import RoadRollerAnimation from "./RoadRollerAnimation";
 import MarqueeStrip from "./MarqueeStrip";
 
 const titles = [
@@ -15,7 +14,6 @@ export default function Hero() {
   const [titleIndex, setTitleIndex] = useState(0);
   const [displayText, setDisplayText] = useState("");
   const [isDeleting, setIsDeleting] = useState(false);
-  const [showRoller, setShowRoller] = useState(false);
   const containerRef = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({ target: containerRef, offset: ["start start", "end start"] });
   const bgY = useTransform(scrollYProgress, [0, 1], ["0%", "30%"]);
@@ -24,7 +22,6 @@ export default function Hero() {
 
   useEffect(() => {
     const currentTitle = titles[titleIndex];
-    
     const timeout = setTimeout(() => {
       if (!isDeleting) {
         if (displayText !== currentTitle) {
@@ -41,23 +38,21 @@ export default function Hero() {
         }
       }
     }, isDeleting ? 50 : 100);
-
     return () => clearTimeout(timeout);
   }, [displayText, isDeleting, titleIndex]);
 
   return (
     <>
-      <AnimatePresence>
-        {showRoller && <RoadRollerAnimation onClose={() => setShowRoller(false)} />}
-      </AnimatePresence>
-
       <section ref={containerRef} id="home" className="relative min-h-screen flex flex-col justify-center overflow-hidden">
         {/* Parallax background layer */}
         <motion.div className="absolute inset-0 z-0 pointer-events-none" style={{ y: bgY }}>
-          <div className="absolute inset-0 halftone-bg opacity-30" />
-          <div className="absolute inset-0 speed-lines opacity-15" />
-          <div className="absolute top-0 left-1/4 w-[60vw] h-[60vw] rounded-full bg-primary/8 blur-[160px]" />
-          <div className="absolute bottom-0 right-1/4 w-[40vw] h-[40vw] rounded-full bg-secondary/8 blur-[120px]" />
+          <div className="absolute inset-0 halftone-bg opacity-20" />
+          <div className="absolute inset-0 speed-lines opacity-25" />
+          <div className="absolute top-0 left-1/4 w-[60vw] h-[60vw] rounded-full bg-primary/6 blur-[180px]" />
+          <div className="absolute bottom-0 right-1/4 w-[40vw] h-[40vw] rounded-full bg-primary/4 blur-[140px]" />
+          {/* Giant floating suit watermarks */}
+          <div className="absolute -right-8 top-[2%] select-none leading-none" style={{ fontFamily: "serif", fontSize: "clamp(14rem, 32vw, 36rem)", color: "hsl(var(--primary) / 0.04)" }}>♠</div>
+          <div className="absolute -left-10 bottom-[-8%] select-none leading-none" style={{ fontFamily: "serif", fontSize: "clamp(8rem, 18vw, 22rem)", color: "hsl(var(--primary) / 0.035)" }}>♥</div>
         </motion.div>
 
         <motion.div className="relative z-10 flex flex-col justify-center min-h-screen px-6 md:px-12 lg:px-20 pt-24 pb-12" style={{ y: textY, opacity }}>
@@ -73,7 +68,7 @@ export default function Hero() {
             <span className="section-label">♠ Portfolio — Ace High ♥ 2026</span>
           </motion.div>
 
-          {/* MASSIVE name — full width */}
+          {/* MASSIVE name */}
           <div className="overflow-hidden mb-4">
             <motion.h1
               className="font-['Anton'] uppercase leading-[0.9] text-foreground"
@@ -97,7 +92,7 @@ export default function Hero() {
             </motion.h1>
           </div>
 
-          {/* Bottom row: typewriter left, bio + CTAs right */}
+          {/* Bottom row */}
           <motion.div
             className="grid md:grid-cols-2 gap-8 md:gap-16 items-end"
             initial={{ opacity: 0, y: 30 }}
@@ -118,35 +113,26 @@ export default function Hero() {
                 <a
                   href="#projects"
                   data-testid="link-view-work"
-                  className="inline-flex items-center gap-2 px-7 py-3.5 bg-primary text-primary-foreground font-['Anton'] tracking-widest uppercase text-sm rounded hover:shadow-[0_0_28px_hsl(var(--primary)/0.55)] hover:scale-[1.03] active:scale-95 transition-all"
+                  className="inline-flex items-center gap-2 px-7 py-3.5 bg-primary text-primary-foreground font-['Anton'] tracking-widest uppercase text-sm rounded-sm hover:shadow-[0_0_28px_hsl(var(--primary)/0.55)] hover:scale-[1.03] active:scale-95 transition-all"
                 >
                   View My Work
-                  <span className="text-xs">♦</span>
+                  <span className="text-xs">♠</span>
                 </a>
                 <a
                   href="https://drive.google.com/file/d/1W3Cb3EWl1ghaIgem3Upwe_VQQp1B-qYo/view"
                   target="_blank"
                   rel="noopener noreferrer"
                   data-testid="link-resume"
-                  className="inline-flex items-center px-7 py-3.5 border border-border text-foreground font-semibold rounded hover:border-primary/50 hover:shadow-[0_0_14px_hsl(var(--primary)/0.25)] hover:scale-[1.03] active:scale-95 transition-all text-sm"
+                  className="inline-flex items-center px-7 py-3.5 border border-border text-foreground font-semibold rounded-sm hover:border-primary/50 hover:shadow-[0_0_14px_hsl(var(--primary)/0.25)] hover:scale-[1.03] active:scale-95 transition-all text-sm"
                 >
                   Resume / CV
                 </a>
-                <motion.button
-                  onClick={() => setShowRoller(true)}
-                  data-testid="button-road-roller"
-                  className="inline-flex items-center px-4 py-3.5 font-['Share_Tech_Mono'] text-xs text-primary/50 hover:text-primary border border-primary/15 hover:border-primary/50 rounded tracking-[0.25em] uppercase transition-all hover:bg-primary/5"
-                  whileHover={{ scale: 1.04 }}
-                  whileTap={{ scale: 0.97 }}
-                >
-                  Road Roller Da!
-                </motion.button>
               </div>
             </div>
           </motion.div>
         </motion.div>
 
-        {/* Scroll indicator bottom right */}
+        {/* Scroll indicator */}
         <motion.div
           className="absolute bottom-10 right-8 md:right-12 flex flex-col items-center gap-2 z-10"
           initial={{ opacity: 0 }}
@@ -164,7 +150,6 @@ export default function Hero() {
         </motion.div>
       </section>
 
-      {/* Marquee strip between hero and next section */}
       <MarqueeStrip
         items={["Flutter", "Laravel", "React", "HTML5", "CSS3", "JavaScript", "MySQL", "PHP", "Tailwind", "Firebase", "Wild Card", "Web Developer"]}
         className="bg-card/40"

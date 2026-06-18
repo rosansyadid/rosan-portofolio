@@ -25,7 +25,7 @@ export default function Skills() {
       <div className="container mx-auto px-6 md:px-12 lg:px-20 max-w-7xl">
         <motion.div className="flex items-center gap-4 mb-6" initial={{ opacity: 0 }} animate={isInView ? { opacity: 1 } : {}} transition={{ duration: 0.6 }}>
           <div className="w-6 h-[1px] bg-primary" />
-          <span className="section-label">Skills — 02</span>
+          <span className="section-label">♥ Skills — II</span>
         </motion.div>
 
         <div className="overflow-hidden mb-16">

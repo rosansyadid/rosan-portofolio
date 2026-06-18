@@ -20,7 +20,7 @@ export default function Contact() {
       <div className="container mx-auto px-6 md:px-12 lg:px-20 max-w-7xl">
         <motion.div className="flex items-center gap-4 mb-6" initial={{ opacity: 0 }} animate={isInView ? { opacity: 1 } : {}} transition={{ duration: 0.6 }}>
           <div className="w-6 h-[1px] bg-primary" />
-          <span className="section-label">Contact — 04</span>
+          <span className="section-label">♣ Contact — IV</span>
         </motion.div>
 
         <div className="grid md:grid-cols-2 gap-16 md:gap-24 items-start">

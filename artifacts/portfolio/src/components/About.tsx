@@ -41,7 +41,7 @@ export default function About() {
           transition={{ duration: 0.6 }}
         >
           <div className="w-6 h-[1px] bg-primary" />
-          <span className="section-label">About Me — 01</span>
+          <span className="section-label">♠ About Me — I</span>
         </motion.div>
 
         {/* Split layout */}
