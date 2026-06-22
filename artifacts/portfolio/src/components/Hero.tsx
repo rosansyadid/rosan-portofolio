@@ -51,8 +51,8 @@ export default function Hero() {
           <div className="absolute top-0 left-1/4 w-[60vw] h-[60vw] rounded-full bg-primary/6 blur-[180px]" />
           <div className="absolute bottom-0 right-1/4 w-[40vw] h-[40vw] rounded-full bg-primary/4 blur-[140px]" />
           {/* Giant floating suit watermarks */}
-          <div className="absolute -right-8 top-[2%] select-none leading-none" style={{ fontFamily: "serif", fontSize: "clamp(14rem, 32vw, 36rem)", color: "hsl(var(--primary) / 0.04)" }}>♠</div>
-          <div className="absolute -left-10 bottom-[-8%] select-none leading-none" style={{ fontFamily: "serif", fontSize: "clamp(8rem, 18vw, 22rem)", color: "hsl(var(--primary) / 0.035)" }}>♥</div>
+          <div className="hidden md:block absolute -right-8 top-[2%] select-none leading-none" style={{ fontFamily: "serif", fontSize: "clamp(14rem, 32vw, 36rem)", color: "hsl(var(--primary) / 0.04)" }}>♠</div>
+          <div className="hidden md:block absolute -left-10 bottom-[-8%] select-none leading-none" style={{ fontFamily: "serif", fontSize: "clamp(8rem, 18vw, 22rem)", color: "hsl(var(--primary) / 0.035)" }}>♥</div>
         </motion.div>
 
         <motion.div className="relative z-10 flex flex-col justify-center min-h-screen px-6 md:px-12 lg:px-20 pt-16 pb-8" style={{ y: textY, opacity }}>
@@ -72,7 +72,7 @@ export default function Hero() {
           <div className="overflow-hidden mb-4">
             <motion.h1
               className="font-['Anton'] uppercase leading-[0.9] text-foreground"
-              style={{ fontSize: "clamp(3.5rem, 9vw, 9rem)", letterSpacing: "-0.01em" }}
+              style={{ fontSize: "clamp(2.5rem, 10vw, 8rem)", letterSpacing: "-0.01em" }}
               initial={{ y: "100%", opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1], delay: 0.3 }}
@@ -83,7 +83,7 @@ export default function Hero() {
           <div className="overflow-hidden mb-8 md:mb-12">
             <motion.h1
               className="font-['Anton'] uppercase leading-[0.9]"
-              style={{ fontSize: "clamp(3.5rem, 9vw, 9rem)", letterSpacing: "-0.01em" }}
+              style={{ fontSize: "clamp(2.5rem, 10vw, 8rem)", letterSpacing: "-0.01em" }}
               initial={{ y: "100%", opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1], delay: 0.45 }}
@@ -109,7 +109,7 @@ export default function Hero() {
               <p className="text-muted-foreground leading-relaxed">
                 Aspiring developer exploring modern technologies. I build clean, responsive, and meaningful digital solutions.
               </p>
-              <div className="flex flex-wrap gap-3">
+              <div className="flex flex-col sm:flex-row flex-wrap gap-3 sm:gap-4">
                 <a
                   href="#projects"
                   data-testid="link-view-work"
@@ -123,7 +123,7 @@ export default function Hero() {
                   target="_blank"
                   rel="noopener noreferrer"
                   data-testid="link-resume"
-                  className="inline-flex items-center px-7 py-3.5 border border-border text-foreground font-semibold rounded-sm hover:border-primary/50 hover:shadow-[0_0_14px_hsl(var(--primary)/0.25)] hover:scale-[1.03] active:scale-95 transition-all text-sm"
+                  className="inline-flex items-center justify-center px-7 py-3.5 border border-border text-foreground font-semibold rounded-sm hover:border-primary/50 hover:shadow-[0_0_14px_hsl(var(--primary)/0.25)] hover:scale-[1.03] active:scale-95 transition-all text-sm"
                 >
                   Resume / CV
                 </a>

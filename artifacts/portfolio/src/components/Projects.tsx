@@ -85,7 +85,7 @@ function ProjectCard({ project, index }: { project: typeof projects[0]; index: n
   const handleMouseLeave = () => setTilt({ x: 0, y: 0 });
 
   return (
-    <div ref={ref} style={{ perspective: "1200px" }} className="h-full min-h-[460px] w-full">
+    <div ref={ref} style={{ perspective: "1200px" }} className="h-full min-h-[400px] md:min-h-[460px] w-full">
       <motion.div
         className="relative h-full"
         style={{ transformStyle: "preserve-3d", transformOrigin: "center center" }}
@@ -181,7 +181,7 @@ export default function Projects() {
 
         <div className="overflow-hidden mb-6">
           <motion.h2
-            className="font-['Anton'] text-5xl md:text-7xl uppercase tracking-wide"
+            className="font-['Anton'] text-4xl md:text-7xl uppercase tracking-wide"
             initial={{ y: "100%" }}
             animate={isInView ? { y: 0 } : {}}
             transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
@@ -244,10 +244,10 @@ export default function Projects() {
               <div className="relative z-10 grid md:grid-cols-2 gap-5 md:gap-8 items-end pt-4">
                 <div>
                   <div className="section-label mb-4">♠ Ace — Featured</div>
-                  <h3 className="font-['Anton'] text-4xl md:text-5xl text-foreground mb-5 tracking-wide group-hover:text-primary transition-colors duration-300">
+                  <h3 className="font-['Anton'] text-3xl md:text-5xl text-foreground mb-4 md:mb-5 tracking-wide group-hover:text-primary transition-colors duration-300">
                     {featured.title}
                   </h3>
-                  <p className="text-muted-foreground leading-relaxed text-lg mb-6">
+                  <p className="text-muted-foreground leading-relaxed text-base md:text-lg mb-5 md:mb-6">
                     {featured.description}
                   </p>
                   <div className="flex flex-wrap gap-2">
