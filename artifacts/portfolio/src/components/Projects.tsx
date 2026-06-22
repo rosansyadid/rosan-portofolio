@@ -15,7 +15,7 @@ const projects = [
     title: "Newsly",
     description: "Retrieving and displaying real-time news efficiently requires clean state coordination and reliable API handling. To solve this, I developed a Flutter application leveraging GetX for lightweight state management and navigation, integrating the http package to consume and parse real-time CNN news endpoints, resulting in a smooth, latency-free news portal with robust data formatting.",
     tech: ["Flutter", "GetX", "HTTP", "CNN API"],
-    github: "https://github.com/rosansyadid/Newsly",
+    github: "https://github.com/rosansyadid/news_app_with_getx",
     value: "2", suit: "♥", red: true,
   },
   {
