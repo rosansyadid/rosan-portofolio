@@ -81,14 +81,14 @@ export default function Skills() {
           </motion.h2>
         </div>
 
-        <div className="grid sm:grid-cols-2 xl:grid-cols-3 gap-3">
+        <div className="flex overflow-x-auto pb-8 -mx-4 px-4 snap-x snap-mandatory sm:grid sm:overflow-visible sm:pb-0 sm:mx-0 sm:px-0 sm:grid-cols-2 xl:grid-cols-3 gap-4">
           {categories.map((category, index) => (
             <motion.div
               key={category.title}
               initial={{ opacity: 0, y: 30 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.8, delay: 0.1 + index * 0.08, ease: [0.16, 1, 0.3, 1] }}
-              className="group"
+              className="group min-w-[85vw] sm:min-w-0 snap-center"
             >
               <div className="relative h-full jojo-panel overflow-hidden p-3 min-h-[280px] bg-card border-border">
                 <div className="absolute inset-0 z-0 bg-gradient-to-br from-transparent via-white/5 to-transparent opacity-60 pointer-events-none" />

@@ -85,7 +85,7 @@ function ProjectCard({ project, index }: { project: typeof projects[0]; index: n
   const handleMouseLeave = () => setTilt({ x: 0, y: 0 });
 
   return (
-    <div ref={ref} style={{ perspective: "1200px" }} className="h-full min-h-[400px] md:min-h-[460px] w-full">
+    <div ref={ref} style={{ perspective: "1200px" }} className="h-full min-h-[400px] md:min-h-[460px] w-full min-w-[85vw] md:min-w-0 shrink-0 snap-center">
       <motion.div
         className="relative h-full"
         style={{ transformStyle: "preserve-3d", transformOrigin: "center center" }}
@@ -191,7 +191,7 @@ export default function Projects() {
         </div>
 
         {/* FEATURED — Ace of Spades, flips from the left */}
-        <div ref={featuredRef} style={{ perspective: "1600px" }} className="mt-6 mb-6 min-h-[300px] w-full">
+        <div ref={featuredRef} style={{ perspective: "1600px" }} className="mt-6 mb-10 min-h-[300px] w-full">
           <motion.div
             className="relative h-full"
             style={{ transformStyle: "preserve-3d", transformOrigin: "center center" }}
@@ -227,7 +227,7 @@ export default function Projects() {
 
             {/* Featured FRONT face */}
             <div
-              className="rounded-none p-6 md:p-8 group relative overflow-hidden bg-card border border-primary/45"
+              className="rounded-none p-6 pb-16 md:p-8 group relative overflow-hidden bg-card border border-primary/45"
               style={{ backfaceVisibility: "hidden", WebkitBackfaceVisibility: "hidden" }}
             >
               <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
@@ -258,7 +258,7 @@ export default function Projects() {
                     ))}
                   </div>
                 </div>
-                <div className="flex md:justify-end items-end">
+                <div className="flex mt-8 md:mt-0 md:justify-end items-end relative z-20">
                   <a
                     href={featured.github}
                     target="_blank"
@@ -278,8 +278,8 @@ export default function Projects() {
           </motion.div>
         </div>
 
-        {/* Remaining projects — flip in staggered */}
-        <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-4 items-stretch">
+        {/* Remaining projects — horizontal scroll on mobile */}
+        <div className="flex overflow-x-auto pb-8 -mx-4 px-4 snap-x snap-mandatory md:grid md:overflow-visible md:pb-0 md:mx-0 md:px-0 md:grid-cols-2 xl:grid-cols-3 gap-4">
           {rest.map((project, index) => (
             <ProjectCard key={project.title} project={project} index={index} />
           ))}
