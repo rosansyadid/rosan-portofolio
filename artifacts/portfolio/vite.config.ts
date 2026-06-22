@@ -38,7 +38,7 @@ const replitPlugins =
 // ============================================================================
 
 export default defineConfig({
-  base: basePath,
+  base: '/',
 
   // ========================================
   // PLUGINS

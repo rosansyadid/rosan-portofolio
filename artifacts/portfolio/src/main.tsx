@@ -3,6 +3,7 @@
 // ============================================================================
 
 import { createRoot } from "react-dom/client";
+import { Router } from "wouter";
 import App from "./App";
 import "./index.css";
 
@@ -16,4 +17,6 @@ if (!rootElement) {
   throw new Error('Root element with id "root" not found in HTML');
 }
 
-createRoot(rootElement).render(<App />);
+createRoot(rootElement).render(
+  <App />
+);
